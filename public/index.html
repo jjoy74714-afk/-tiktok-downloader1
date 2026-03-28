@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok ডাউনলোডার</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #667eea;
+        }
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 30px;
+            display: none;
+        }
+        .result.show {
+            display: block;
+        }
+        video {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            .input-group { flex-direction: column; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 TikTok ডাউনলোডার</h1>
+        <p class="subtitle">ওয়াটারমার্ক ছাড়া ভিডিও ডাউনলোড করুন</p>
+        
+        <div class="input-group">
+            <input type="text" id="videoUrl" placeholder="TikTok লিংক পেস্ট করুন...">
+            <button id="downloadBtn" onclick="downloadVideo()">ডাউনলোড</button>
+        </div>
+        
+        <div id="result" class="result">
+            <video id="videoPreview" controls></video>
+            <a id="downloadLink" class="download-btn" download>ভিডিও সেভ করুন</a>
+        </div>
+        
+        <div class="info">
+            <strong>কিভাবে ব্যবহার করবেন:</strong><br>
+            1. TikTok অ্যাপে ভিডিওর শেয়ার বাটন চাপুন<br>
+            2. "Copy Link" সিলেক্ট করুন<br>
+            3. লিংক পেস্ট করে ডাউনলোড চাপুন
+        </div>
+    </div>
+
+    <script>
+        async function downloadVideo() {
+            const urlInput = document.getElementById('videoUrl');
+            const btn = document.getElementById('downloadBtn');
+            const resultDiv = document.getElementById('result');
+            const videoPreview = document.getElementById('videoPreview');
+            const downloadLink = document.getElementById('downloadLink');
+            
+            let videoUrl = urlInput.value.trim();
+            
+            if (!videoUrl) {
+                alert('দয়া করে একটি TikTok লিংক দিন!');
+                return;
+            }
+            
+            if (!videoUrl.includes('tiktok.com')) {
+                alert('শুধুমাত্র TikTok লিংক সাপোর্ট করে!');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> প্রসেসিং...';
+            resultDiv.classList.remove('show');
+            
+            try {
+                const response = await fetch('/api/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: videoUrl })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.videoUrl) {
+                    videoPreview.src = data.videoUrl;
+                    downloadLink.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
+                    downloadLink.download = `tiktok_${Date.now()}.mp4`;
+                    resultDiv.classList.add('show');
+                    btn.innerHTML = 'ডাউনলোড';
+                } else {
+                    throw new Error('ভিডিও পাওয়া যায়নি');
+                }
+                
+            } catch (error) {
+                alert('ভিডিও ডাউনলোড করা যাচ্ছে না! পরে আবার চেষ্টা করুন।');
+                btn.innerHTML = 'ডাউনলোড';
+            } finally {
+                btn.disabled = false;
+            }
+        }
+        
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') downloadVideo();
+        });
+    </script>
+</body>
+</html>
