@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Downloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TikSave - Mehedi</title>
     <style>
         * {
             margin: 0;
@@ -26,6 +25,9 @@
             --shadow-color: rgba(0,0,0,0.3);
             --error-bg: #f8d7da;
             --error-text: #721c24;
+            --lang-btn-bg: #f0f0f0;
+            --lang-btn-text: #333;
+            --video-info-bg: #f8f9fa;
         }
 
         /* Dark Mode */
@@ -42,6 +44,9 @@
             --shadow-color: rgba(0,0,0,0.5);
             --error-bg: #5a1a1a;
             --error-text: #ffaaaa;
+            --lang-btn-bg: #2d2d44;
+            --lang-btn-text: #f0f0f0;
+            --video-info-bg: #2a2a3e;
         }
 
         body {
@@ -53,113 +58,108 @@
             align-items: center;
             padding: 20px;
             transition: background 0.5s ease;
-            animation: bgPulse 10s ease-in-out infinite;
         }
-        
-        /* Background subtle animation */
-        @keyframes bgPulse {
-            0%, 100% {
-                background: linear-gradient(135deg, var(--bg-gradient1) 0%, var(--bg-gradient2) 100%);
-            }
-            50% {
-                background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            }
-        }
-        
+
         .container {
             background: var(--container-bg);
             border-radius: 20px;
             padding: 40px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             box-shadow: 0 20px 60px var(--shadow-color);
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: containerFadeIn 0.6s ease-out, containerGlow 3s ease-in-out infinite;
         }
-        
-        @keyframes containerFadeIn {
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            animation: logoPop 0.6s ease-out;
+        }
+
+        @keyframes logoPop {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.95);
+                transform: scale(0.5) rotate(-180deg);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: scale(1) rotate(0deg);
             }
         }
-        
-        @keyframes containerGlow {
-            0%, 100% {
-                box-shadow: 0 20px 60px var(--shadow-color);
-            }
-            50% {
-                box-shadow: 0 25px 70px rgba(102, 126, 234, 0.4);
-            }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
         }
-        
-        .container:hover {
-            transform: translateY(-5px);
+
+        .logo-icon:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
-        
-        h1 {
-            color: var(--text-color);
-            margin-bottom: 10px;
-            animation: titleSlideIn 0.8s ease-out;
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: bold;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            display: inline-block;
+            letter-spacing: 1px;
         }
-        
-        @keyframes titleSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .subtitle {
+
+        .brand-tag {
+            font-size: 12px;
             color: var(--subtitle-color);
-            margin-bottom: 30px;
-            animation: subtitleFadeIn 0.8s ease-out 0.2s both;
+            margin-top: -5px;
+            animation: tagFade 0.8s ease-out 0.2s both;
         }
-        
-        @keyframes subtitleFadeIn {
+
+        @keyframes tagFade {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
+        h1 {
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            color: var(--subtitle-color);
+            margin-bottom: 30px;
+        }
+
         .input-group {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            animation: inputGroupSlide 0.8s ease-out 0.3s both;
         }
-        
-        @keyframes inputGroupSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
+
         input {
             flex: 1;
             padding: 15px 20px;
@@ -169,20 +169,14 @@
             outline: none;
             background: var(--input-bg);
             color: var(--text-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
         }
-        
+
         input:focus {
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-            transform: scale(1.02);
         }
-        
-        input:hover {
-            transform: translateX(5px);
-            border-color: #764ba2;
-        }
-        
+
         button {
             padding: 15px 30px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -192,86 +186,103 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
         }
-        
-        button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
+
         button:hover {
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
+
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
         }
-        
+
         .result {
             margin-top: 30px;
             display: none;
-            animation: resultPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        
+
         .result.show {
             display: block;
+            animation: resultPop 0.5s ease;
         }
-        
+
         @keyframes resultPop {
             from {
                 opacity: 0;
-                transform: scale(0.8) translateY(20px);
+                transform: scale(0.9) translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
         }
-        
+
         video {
             max-width: 100%;
             border-radius: 10px;
             margin-bottom: 15px;
-            animation: videoGlow 2s ease-in-out infinite;
-            transition: transform 0.3s;
         }
-        
-        video:hover {
-            transform: scale(1.02);
+
+        /* Video Info Card */
+        .video-info-card {
+            background: var(--video-info-bg);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+            animation: infoSlide 0.5s ease;
         }
-        
-        @keyframes videoGlow {
-            0%, 100% {
-                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+
+        @keyframes infoSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
             }
-            50% {
-                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
-        
+
+        .video-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--subtitle-color);
+        }
+
+        .stat i {
+            font-size: 14px;
+        }
+
+        .video-author {
+            font-size: 12px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .download-btn {
             display: inline-block;
             padding: 12px 25px;
@@ -280,32 +291,14 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
         }
-        
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .download-btn:hover::before {
-            left: 100%;
-        }
-        
+
         .download-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
             background: #218838;
         }
-        
+
         .error {
             background: var(--error-bg);
             color: var(--error-text);
@@ -314,13 +307,13 @@
             margin-top: 15px;
             animation: errorShake 0.5s ease;
         }
-        
+
         @keyframes errorShake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
         }
-        
+
         .loading {
             display: inline-block;
             width: 20px;
@@ -331,12 +324,12 @@
             animation: spin 1s linear infinite;
             margin-right: 10px;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         .info {
             background: var(--info-bg);
             padding: 15px;
@@ -344,26 +337,18 @@
             margin-top: 20px;
             font-size: 12px;
             color: var(--info-text);
-            animation: infoSlideUp 0.8s ease-out 0.5s both;
-            transition: all 0.3s;
         }
-        
-        @keyframes infoSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--subtitle-color);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
         }
-        
-        .info:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
+
         /* Theme Toggle Button */
         .theme-toggle {
             position: fixed;
@@ -378,75 +363,76 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.4s;
             z-index: 1000;
             font-size: 24px;
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: themeBtnPop 0.6s ease-out;
         }
-        
-        @keyframes themeBtnPop {
-            from {
-                opacity: 0;
-                transform: scale(0) rotate(-180deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0);
-            }
-        }
-        
+
         .theme-toggle:hover {
             transform: scale(1.15) rotate(15deg);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-        
-        /* Result items individual animations */
-        .result.show video {
-            animation: videoReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 85px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            z-index: 1000;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            color: white;
         }
-        
-        @keyframes videoReveal {
-            from {
-                opacity: 0;
-                transform: scale(0.9) rotateX(-15deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotateX(0);
-            }
+
+        .lang-toggle:hover {
+            transform: scale(1.15);
         }
-        
-        .result.show .download-btn {
-            animation: btnReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
-        }
-        
-        @keyframes btnReveal {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
+
         @media (max-width: 480px) {
             .container { padding: 25px; }
             .input-group { flex-direction: column; }
             button { width: 100%; }
             .theme-toggle { width: 40px; height: 40px; font-size: 18px; top: 10px; right: 10px; }
+            .lang-toggle { width: 40px; height: 40px; font-size: 16px; top: 10px; right: 60px; }
+            .video-stats { gap: 10px; }
+            .logo-icon { width: 45px; height: 45px; font-size: 24px; }
+            .brand-name { font-size: 22px; }
         }
     </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+    <button class="theme-toggle" id="themeToggle" title="Dark/Light Mode">🌙</button>
+    <button class="lang-toggle" id="langToggle" title="বাংলা / English">🇧🇩 EN</button>
     
     <div class="container">
-        <h1>🎵 TikTok Downloader</h1>
-        <p class="subtitle">Download videos without watermark</p>
+        <!-- Logo and Brand Section -->
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fab fa-tiktok"></i>
+            </div>
+            <div>
+                <div class="brand-name">TikSave</div>
+                <div class="brand-tag">by MEHEDI</div>
+            </div>
+        </div>
+        
+        <h1 id="title">🎵 TikTok Downloader</h1>
+        <p id="subtitle" class="subtitle">Download videos without watermark</p>
         
         <div class="input-group">
             <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
@@ -455,65 +441,162 @@
         
         <div id="result" class="result">
             <video id="videoPreview" controls></video>
+            <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
             <a id="downloadLink" class="download-btn" download>Save Video</a>
         </div>
         
-        <div class="info">
+        <div id="info" class="info">
             <strong>How to use:</strong><br>
             1. Tap share button on TikTok video<br>
             2. Select "Copy Link"<br>
             3. Paste the link and click Download
         </div>
+        
+        <div class="footer">
+            <i class="fab fa-tiktok"></i> TikSave by MEHEDI | © 2026
+        </div>
     </div>
 
     <script>
-        // Dark/Light Mode Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+        // Language translations
+        const translations = {
+            en: {
+                title: "🎵 TikTok Downloader",
+                subtitle: "Download videos without watermark",
+                placeholder: "Paste TikTok link here...",
+                button: "Download",
+                saveBtn: "Save Video",
+                infoTitle: "How to use:",
+                info1: "1. Tap share button on TikTok video",
+                info2: "2. Select \"Copy Link\"",
+                info3: "3. Paste the link and click Download",
+                processing: "Processing...",
+                error: "Unable to download video! Please try again later.",
+                errorEmpty: "Please enter a TikTok link!",
+                errorInvalid: "Only TikTok links are supported!",
+                likes: "Likes",
+                comments: "Comments",
+                shares: "Shares",
+                author: "Author"
+            },
+            bn: {
+                title: "🎵 টিকটক ডাউনলোডার",
+                subtitle: "ওয়াটারমার্ক ছাড়া ভিডিও ডাউনলোড করুন",
+                placeholder: "টিকটক লিংক পেস্ট করুন...",
+                button: "ডাউনলোড",
+                saveBtn: "ভিডিও সেভ করুন",
+                infoTitle: "কিভাবে ব্যবহার করবেন:",
+                info1: "১. টিকটক ভিডিওর শেয়ার বাটন চাপুন",
+                info2: "২. 'কপি লিংক' সিলেক্ট করুন",
+                info3: "৩. লিংক পেস্ট করে ডাউনলোড চাপুন",
+                processing: "প্রসেসিং...",
+                error: "ভিডিও ডাউনলোড করা যাচ্ছে না! পরে আবার চেষ্টা করুন।",
+                errorEmpty: "দয়া করে একটি টিকটক লিংক দিন!",
+                errorInvalid: "শুধুমাত্র টিকটক লিংক সাপোর্ট করে!",
+                likes: "লাইক",
+                comments: "মন্তব্য",
+                shares: "শেয়ার",
+                author: "লেখক"
+            }
+        };
+
+        let currentLang = 'en';
+        let currentVideoInfo = null;
+
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
         
-        // Check saved theme in localStorage
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark');
-            themeToggle.innerHTML = '☀️';
-        } else {
-            themeToggle.innerHTML = '🌙';
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('title').innerHTML = translations[lang].title;
+            document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
+            document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
+            document.getElementById('downloadBtn').innerHTML = translations[lang].button;
+            document.getElementById('downloadLink').innerHTML = translations[lang].saveBtn;
+            
+            const infoHtml = `<strong>${translations[lang].infoTitle}</strong><br>${translations[lang].info1}<br>${translations[lang].info2}<br>${translations[lang].info3}`;
+            document.getElementById('info').innerHTML = infoHtml;
+            
+            langToggle.innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
+            
+            if (currentVideoInfo) {
+                displayVideoInfo(currentVideoInfo);
+            }
         }
         
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            if (body.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '☀️';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '🌙';
-            }
+        langToggle.addEventListener('click', () => {
+            const newLang = currentLang === 'en' ? 'bn' : 'en';
+            updateLanguage(newLang);
+            localStorage.setItem('language', newLang);
         });
         
-        // Original download function - exactly as before
+        const savedLang = localStorage.getItem('language');
+        if (savedLang && (savedLang === 'en' || savedLang === 'bn')) {
+            updateLanguage(savedLang);
+        } else {
+            updateLanguage('en');
+        }
+
+        function displayVideoInfo(data) {
+            const infoCard = document.getElementById('videoInfoCard');
+            currentVideoInfo = data;
+            
+            const formatNumber = (num) => {
+                if (!num) return '0';
+                if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+                if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+                return num.toString();
+            };
+            
+            const html = `
+                <div class="video-title">
+                    <i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}
+                </div>
+                <div class="video-stats">
+                    <div class="stat"><i class="fas fa-heart" style="color: #ff4444;"></i> ${formatNumber(data.likes)} ${translations[currentLang].likes}</div>
+                    <div class="stat"><i class="fas fa-comment" style="color: #44aaff;"></i> ${formatNumber(data.comments)} ${translations[currentLang].comments}</div>
+                    <div class="stat"><i class="fas fa-share" style="color: #44dd44;"></i> ${formatNumber(data.shares)} ${translations[currentLang].shares}</div>
+                </div>
+                <div class="video-author">
+                    <i class="fab fa-tiktok"></i> ${translations[currentLang].author}: @${escapeHtml(data.author || 'unknown')}
+                </div>
+            `;
+            
+            infoCard.innerHTML = html;
+            infoCard.style.display = 'block';
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
         async function downloadVideo() {
             const urlInput = document.getElementById('videoUrl');
             const btn = document.getElementById('downloadBtn');
             const resultDiv = document.getElementById('result');
             const videoPreview = document.getElementById('videoPreview');
             const downloadLink = document.getElementById('downloadLink');
+            const videoInfoCard = document.getElementById('videoInfoCard');
             
             let videoUrl = urlInput.value.trim();
             
             if (!videoUrl) {
-                showError('Please enter a TikTok link!');
+                showError(translations[currentLang].errorEmpty);
                 return;
             }
             
             if (!videoUrl.includes('tiktok.com')) {
-                showError('Only TikTok links are supported!');
+                showError(translations[currentLang].errorInvalid);
                 return;
             }
             
             btn.disabled = true;
-            btn.innerHTML = '<span class="loading"></span> Processing...';
+            btn.innerHTML = `<span class="loading"></span> ${translations[currentLang].processing}`;
             resultDiv.classList.remove('show');
+            videoInfoCard.style.display = 'none';
             
             try {
                 const response = await fetch('/api/download', {
@@ -528,15 +611,26 @@
                     videoPreview.src = data.videoUrl;
                     downloadLink.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
                     downloadLink.download = `tiktok_${Date.now()}.mp4`;
+                    
+                    if (data.title || data.author || data.likes) {
+                        displayVideoInfo({
+                            title: data.title,
+                            author: data.author,
+                            likes: data.likes,
+                            comments: data.comments,
+                            shares: data.shares
+                        });
+                    }
+                    
                     resultDiv.classList.add('show');
-                    btn.innerHTML = 'Download';
+                    btn.innerHTML = translations[currentLang].button;
                 } else {
                     throw new Error('Video not found');
                 }
                 
             } catch (error) {
-                showError('Unable to download video! Please try again later.');
-                btn.innerHTML = 'Download';
+                showError(translations[currentLang].error);
+                btn.innerHTML = translations[currentLang].button;
             } finally {
                 btn.disabled = false;
             }
@@ -558,14 +652,27 @@
         document.getElementById('videoUrl').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') downloadVideo();
         });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
         
-        // Input field focus animation trigger
-        const inputField = document.getElementById('videoUrl');
-        inputField.addEventListener('focus', () => {
-            inputField.style.transform = 'scale(1.02)';
-        });
-        inputField.addEventListener('blur', () => {
-            inputField.style.transform = 'scale(1)';
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark');
+            themeToggle.innerHTML = '☀️';
+        } else {
+            themeToggle.innerHTML = '🌙';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            if (body.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '🌙';
+            }
         });
     </script>
 </body>
