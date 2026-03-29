@@ -26,8 +26,6 @@
             --error-text: #721c24;
             --video-info-bg: #f8f9fa;
             --counter-bg: #e8f0fe;
-            --favorite-bg: #fff9e6;
-            --favorite-border: #ffc107;
             --quality-bg: #f0f0f0;
         }
 
@@ -46,8 +44,6 @@
             --error-text: #ffaaaa;
             --video-info-bg: #2a2a3e;
             --counter-bg: #1a2a3e;
-            --favorite-bg: #2a2a1e;
-            --favorite-border: #ffc107;
             --quality-bg: #2a2a3e;
         }
 
@@ -128,123 +124,6 @@
         }
 
         /* Clear Link Button */
-        .clear-link-btn {
-            background: #6c757d;
-            padding: 14px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        .clear-link-btn:hover {
-            background: #5a6268;
-        }
-
-        /* Quality Selector */
-        .quality-selector {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .quality-btn {
-            background: var(--quality-bg);
-            color: var(--text-color);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-        }
-
-        .quality-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        /* Multiple Links Input */
-        .multiple-links-input {
-            background: var(--input-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .multiple-links-input textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-color);
-            font-size: 14px;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Favorite Tabs */
-        .favorite-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        .tab-btn {
-            background: transparent;
-            color: var(--text-color);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        /* Batch Download Progress */
-        .batch-progress {
-            background: var(--counter-bg);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .batch-progress.show {
-            display: block;
-        }
-
-        .progress-bar {
-            background: var(--border-color);
-            border-radius: 10px;
-            height: 8px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            width: 0%;
-            height: 100%;
-            transition: width 0.3s;
-        }
-
-        h1 {
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-
-        .subtitle {
-            color: var(--subtitle-color);
-            margin-bottom: 25px;
-            font-size: 14px;
-        }
-
         .input-group {
             display: flex;
             gap: 10px;
@@ -266,6 +145,7 @@
         textarea {
             border-radius: 20px;
             font-family: inherit;
+            resize: vertical;
         }
 
         button {
@@ -284,6 +164,88 @@
             transform: scale(1.03);
         }
 
+        .clear-btn {
+            background: #6c757d;
+        }
+
+        .clear-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Quality Selector */
+        .quality-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quality-btn {
+            background: var(--quality-bg);
+            color: var(--text-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .quality-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* Multiple Links Section */
+        .multiple-links-section {
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: var(--subtitle-color);
+        }
+
+        /* Batch Progress */
+        .batch-progress {
+            background: var(--counter-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .batch-progress.show {
+            display: block;
+        }
+
+        .progress-bar {
+            background: var(--border-color);
+            border-radius: 10px;
+            height: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .batch-status {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        /* Result Section */
         .result {
             margin-top: 25px;
             display: none;
@@ -321,13 +283,6 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-        }
-
-        .favorite-btn {
-            background: #ffc107;
-            color: #333;
-            margin-left: 10px;
-            padding: 10px 18px;
         }
 
         .error {
@@ -414,63 +369,48 @@
             <i class="fas fa-download"></i> <span id="counterText">Today Downloads:</span> <span class="counter-number" id="counterValue">0</span>
         </div>
         
-        <div class="favorite-tabs">
-            <button class="tab-btn active" id="downloadTabBtn" onclick="showTab('download')"><i class="fas fa-download"></i> Download</button>
-            <button class="tab-btn" id="favoritesTabBtn" onclick="showTab('favorites')"><i class="fas fa-heart"></i> Favorites (<span id="favCount">0</span>)</button>
+        <h1 id="title">🎵 TikTok Downloader</h1>
+        <p id="subtitle" class="subtitle">Download videos without watermark</p>
+        
+        <!-- Quality Selector -->
+        <div class="quality-selector" id="qualitySelector">
+            <button class="quality-btn active" data-quality="hd">1080p HD</button>
+            <button class="quality-btn" data-quality="sd">720p</button>
+            <button class="quality-btn" data-quality="mp3">MP3 (Audio Only)</button>
         </div>
         
-        <!-- Download Section -->
-        <div id="downloadSection">
-            <h1 id="title">🎵 TikTok Downloader</h1>
-            <p id="subtitle" class="subtitle">Download videos without watermark</p>
-            
-            <!-- Quality Selector -->
-            <div class="quality-selector" id="qualitySelector">
-                <button class="quality-btn active" data-quality="hd">1080p HD</button>
-                <button class="quality-btn" data-quality="sd">720p</button>
-                <button class="quality-btn" data-quality="mp3">MP3 (Audio Only)</button>
-            </div>
-            
-            <!-- Single Link Input -->
-            <div class="input-group">
-                <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
-                <button id="clearLinkBtn" class="clear-link-btn" onclick="clearLink()">Clear</button>
-            </div>
-            
-            <!-- Multiple Links Section -->
-            <div class="multiple-links-input">
-                <div style="margin-bottom: 8px; font-size: 12px;">
-                    <i class="fas fa-link"></i> Or paste multiple links (one per line, max 5):
-                </div>
-                <textarea id="multipleUrls" placeholder="https://www.tiktok.com/@user/video/123456789&#10;https://www.tiktok.com/@user/video/987654321&#10;https://www.tiktok.com/@user/video/456789123" rows="3"></textarea>
-                <button id="batchDownloadBtn" onclick="batchDownload()" style="margin-top: 10px; width: 100%;">📦 Download All (Max 5)</button>
-            </div>
-            
-            <!-- Batch Progress -->
-            <div id="batchProgress" class="batch-progress">
-                <div id="batchStatus">Preparing...</div>
-                <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
-            </div>
-            
-            <div id="result" class="result">
-                <video id="videoPreview" controls></video>
-                <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <a id="downloadLink" class="download-btn" download>Save Video</a>
-                    <button id="saveFavoriteBtn" class="favorite-btn" onclick="saveCurrentToFavorites()">❤️ Save to Favorites</button>
-                </div>
-            </div>
+        <!-- Single Link Input -->
+        <div class="input-group">
+            <input type="text" id="videoUrl" placeholder="Paste single TikTok link here...">
+            <button id="clearLinkBtn" class="clear-btn" onclick="clearLink()">Clear</button>
         </div>
         
-        <!-- Favorites Section -->
-        <div id="favoritesSection" style="display: none;">
-            <h1><i class="fas fa-heart"></i> My Favorites</h1>
-            <p class="subtitle">Your saved videos</p>
-            <div id="favoritesList" class="favorites-list" style="max-height: 400px; overflow-y: auto;"></div>
+        <!-- Multiple Links Section -->
+        <div class="multiple-links-section">
+            <div class="section-title">
+                <i class="fas fa-layer-group"></i> <span id="batchTitle">Batch Download (Max 5 links)</span>
+            </div>
+            <textarea id="multipleUrls" placeholder="https://www.tiktok.com/@user/video/123456789&#10;https://www.tiktok.com/@user/video/987654321&#10;https://www.tiktok.com/@user/video/456789123" rows="3"></textarea>
+            <button id="batchDownloadBtn" onclick="startBatchDownload()" style="margin-top: 12px; width: 100%;">
+                <i class="fas fa-download"></i> <span id="batchBtnText">Download All (Auto 1 by 1)</span>
+            </button>
+        </div>
+        
+        <!-- Batch Progress -->
+        <div id="batchProgress" class="batch-progress">
+            <div class="batch-status" id="batchStatus">Ready...</div>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+        
+        <!-- Single Result -->
+        <div id="result" class="result">
+            <video id="videoPreview" controls></video>
+            <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
+            <a id="downloadLink" class="download-btn" download>Save Video</a>
         </div>
         
         <div id="info" class="info">
-            <strong>Features:</strong> Clear Link | 1080p/720p/MP3 | Batch Download (5 links) | Favorites
+            <strong>Features:</strong> 🔗 Clear Link | 🎯 1080p/720p/MP3 | 📦 Batch Download (5 links auto 1 by 1)
         </div>
         
         <div class="footer"><i class="fab fa-tiktok"></i> TikSave by MEHEDI | © 2026</div>
@@ -482,7 +422,7 @@
         let currentVideoData = null;
         let downloadCount = 0;
         let todayDate = new Date().toDateString();
-        let favorites = [];
+        let isBatchRunning = false;
         
         // ========== QUALITY SELECTOR ==========
         document.querySelectorAll('.quality-btn').forEach(btn => {
@@ -500,10 +440,10 @@
             const downloadLink = document.getElementById('downloadLink');
             if (currentQuality === 'mp3') {
                 downloadLink.href = `/api/proxy?url=${encodeURIComponent(videoUrl)}&format=mp3`;
-                downloadLink.innerText = '🎵 Download MP3';
+                downloadLink.innerHTML = '<i class="fas fa-music"></i> Download MP3';
             } else {
                 downloadLink.href = `/api/proxy?url=${encodeURIComponent(videoUrl)}`;
-                downloadLink.innerText = currentQuality === 'hd' ? '📥 Download HD (1080p)' : '📥 Download (720p)';
+                downloadLink.innerHTML = currentQuality === 'hd' ? '<i class="fas fa-download"></i> Download HD (1080p)' : '<i class="fas fa-download"></i> Download (720p)';
             }
         }
         
@@ -512,91 +452,25 @@
             document.getElementById('videoUrl').value = '';
             document.getElementById('multipleUrls').value = '';
             document.getElementById('result').classList.remove('show');
-            showSuccess('Link cleared!');
+            showMessage('Link cleared!', '#28a745');
         }
         
-        // ========== BATCH DOWNLOAD ==========
-        async function batchDownload() {
-            const urlsText = document.getElementById('multipleUrls').value;
-            if (!urlsText.trim()) {
-                showError('Please paste TikTok links!');
-                return;
-            }
-            
-            let urls = urlsText.split('\n').filter(u => u.trim() && u.includes('tiktok.com'));
-            urls = [...new Set(urls)]; // Remove duplicates
-            
-            if (urls.length > 5) {
-                showError('Maximum 5 links allowed! Only first 5 will be processed.');
-                urls = urls.slice(0, 5);
-            }
-            
-            if (urls.length === 0) {
-                showError('No valid TikTok links found!');
-                return;
-            }
-            
-            const batchDiv = document.getElementById('batchProgress');
-            const statusSpan = document.getElementById('batchStatus');
-            const progressFill = document.getElementById('progressFill');
-            batchDiv.classList.add('show');
-            
-            let completed = 0;
-            let successCount = 0;
-            
-            for (let i = 0; i < urls.length; i++) {
-                const url = urls[i].trim();
-                statusSpan.innerHTML = `Processing ${i+1}/${urls.length}: ${url.substring(0, 50)}...`;
-                progressFill.style.width = `${(i / urls.length) * 100}%`;
-                
-                try {
-                    const response = await fetch('/api/download', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ url: url })
-                    });
-                    const data = await response.json();
-                    
-                    if (data.success && data.videoUrl) {
-                        successCount++;
-                        // Trigger download
-                        const link = document.createElement('a');
-                        link.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
-                        link.download = `tiktok_${Date.now()}_${i}.mp4`;
-                        link.click();
-                        incrementDownloadCounter();
-                        await new Promise(r => setTimeout(r, 1000));
-                    }
-                } catch (err) {
-                    console.error('Batch error:', err);
-                }
-                completed++;
-                progressFill.style.width = `${(completed / urls.length) * 100}%`;
-            }
-            
-            statusSpan.innerHTML = `✅ Complete! ${successCount}/${urls.length} videos downloaded.`;
-            setTimeout(() => batchDiv.classList.remove('show'), 5000);
-            showSuccess(`${successCount} videos downloaded!`);
-        }
-        
-        // ========== DOWNLOAD FUNCTION ==========
+        // ========== SINGLE DOWNLOAD ==========
         async function downloadVideo() {
             const urlInput = document.getElementById('videoUrl');
             const btn = document.getElementById('downloadBtn');
             const resultDiv = document.getElementById('result');
             const videoPreview = document.getElementById('videoPreview');
-            const downloadLink = document.getElementById('downloadLink');
-            const videoInfoCard = document.getElementById('videoInfoCard');
             
             let videoUrl = urlInput.value.trim();
             
-            if (!videoUrl) { showError(translations[currentLang]?.errorEmpty || 'Enter link!'); return; }
-            if (!videoUrl.includes('tiktok.com')) { showError(translations[currentLang]?.errorInvalid || 'Only TikTok!'); return; }
+            if (!videoUrl) { showMessage('Please enter a TikTok link!', '#dc3545'); return; }
+            if (!videoUrl.includes('tiktok.com')) { showMessage('Only TikTok links are supported!', '#dc3545'); return; }
             
+            if (!btn) return;
             btn.disabled = true;
-            btn.innerHTML = `<span class="loading"></span> ${translations[currentLang]?.processing || 'Processing...'}`;
+            btn.innerHTML = `<span class="loading"></span> Processing...`;
             resultDiv.classList.remove('show');
-            videoInfoCard.style.display = 'none';
             
             try {
                 const response = await fetch('/api/download', {
@@ -620,108 +494,130 @@
                     displayVideoInfo({ title: data.title, author: data.author, likes: data.likes });
                     resultDiv.classList.add('show');
                     incrementDownloadCounter();
-                    btn.innerHTML = translations[currentLang]?.button || 'Download';
+                    btn.innerHTML = 'Download';
                 } else {
                     throw new Error('Not found');
                 }
             } catch (error) {
-                showError(translations[currentLang]?.error || 'Error! Try again.');
-                btn.innerHTML = translations[currentLang]?.button || 'Download';
+                showMessage('Download failed! Try again.', '#dc3545');
+                btn.innerHTML = 'Download';
             } finally {
                 btn.disabled = false;
             }
         }
         
+        // ========== BATCH DOWNLOAD (Auto 1 by 1) ==========
+        async function startBatchDownload() {
+            if (isBatchRunning) {
+                showMessage('Batch download already running!', '#ffc107');
+                return;
+            }
+            
+            const urlsText = document.getElementById('multipleUrls').value;
+            if (!urlsText.trim()) {
+                showMessage('Please paste TikTok links in the batch area!', '#dc3545');
+                return;
+            }
+            
+            let urls = urlsText.split('\n').filter(u => u.trim() && u.includes('tiktok.com'));
+            urls = [...new Set(urls)];
+            
+            if (urls.length === 0) {
+                showMessage('No valid TikTok links found!', '#dc3545');
+                return;
+            }
+            
+            if (urls.length > 5) {
+                showMessage('Maximum 5 links allowed! Only first 5 will be processed.', '#ffc107');
+                urls = urls.slice(0, 5);
+            }
+            
+            isBatchRunning = true;
+            const batchDiv = document.getElementById('batchProgress');
+            const statusSpan = document.getElementById('batchStatus');
+            const progressFill = document.getElementById('progressFill');
+            const batchBtn = document.getElementById('batchDownloadBtn');
+            
+            batchDiv.classList.add('show');
+            batchBtn.disabled = true;
+            batchBtn.innerHTML = '<span class="loading"></span> Downloading...';
+            
+            let completed = 0;
+            let successCount = 0;
+            let failCount = 0;
+            
+            for (let i = 0; i < urls.length; i++) {
+                const url = urls[i].trim();
+                statusSpan.innerHTML = `📥 Downloading ${i+1}/${urls.length}: ${url.substring(0, 50)}...`;
+                progressFill.style.width = `${(i / urls.length) * 100}%`;
+                
+                try {
+                    const response = await fetch('/api/download', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url: url })
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success && data.videoUrl) {
+                        successCount++;
+                        incrementDownloadCounter();
+                        
+                        // Auto download this video
+                        const link = document.createElement('a');
+                        link.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
+                        link.download = `tiktok_${Date.now()}_${i+1}.mp4`;
+                        link.click();
+                        
+                        // Show preview for current video (optional)
+                        if (i === 0) {
+                            document.getElementById('videoPreview').src = data.videoUrl;
+                            displayVideoInfo({ title: data.title, author: data.author, likes: data.likes });
+                            document.getElementById('result').classList.add('show');
+                        }
+                        
+                        statusSpan.innerHTML = `✅ ${i+1}/${urls.length} Complete! Downloaded: ${successCount}`;
+                        progressFill.style.width = `${((i+1) / urls.length) * 100}%`;
+                        
+                        // Wait 2 seconds before next download
+                        await new Promise(r => setTimeout(r, 2000));
+                    } else {
+                        failCount++;
+                        statusSpan.innerHTML = `⚠️ ${i+1}/${urls.length} Failed: ${url.substring(0, 40)}`;
+                        await new Promise(r => setTimeout(r, 1000));
+                    }
+                } catch (err) {
+                    failCount++;
+                    statusSpan.innerHTML = `❌ ${i+1}/${urls.length} Error: ${url.substring(0, 40)}`;
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+                completed++;
+            }
+            
+            statusSpan.innerHTML = `🎉 Complete! Success: ${successCount}, Failed: ${failCount}, Total: ${urls.length}`;
+            progressFill.style.width = `100%`;
+            
+            showMessage(`Batch download complete! ${successCount} videos downloaded.`, '#28a745');
+            
+            setTimeout(() => {
+                batchDiv.classList.remove('show');
+                batchBtn.disabled = false;
+                batchBtn.innerHTML = '<i class="fas fa-download"></i> Download All (Auto 1 by 1)';
+                isBatchRunning = false;
+            }, 4000);
+        }
+        
         function displayVideoInfo(data) {
             const infoCard = document.getElementById('videoInfoCard');
+            if (!infoCard) return;
             infoCard.innerHTML = `
                 <div class="video-title"><i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}</div>
-                <div class="video-stats" style="display: flex; gap: 12px; font-size: 12px;">
+                <div style="display: flex; gap: 15px; font-size: 12px; margin-top: 5px;">
                     <span><i class="fas fa-heart" style="color:#ff4444;"></i> ${formatNumber(data.likes)}</span>
                     <span><i class="fab fa-tiktok"></i> @${escapeHtml(data.author || 'unknown')}</span>
                 </div>
             `;
             infoCard.style.display = 'block';
-        }
-        
-        // ========== FAVORITES ==========
-        function saveCurrentToFavorites() {
-            if (!currentVideoData || !currentVideoData.videoUrl) {
-                showError('Download a video first!');
-                return;
-            }
-            if (favorites.some(f => f.videoUrl === currentVideoData.videoUrl)) {
-                showError('Already in favorites!');
-                return;
-            }
-            favorites.push({
-                id: Date.now(),
-                title: currentVideoData.title || 'TikTok Video',
-                author: currentVideoData.author || 'unknown',
-                likes: currentVideoData.likes || 0,
-                videoUrl: currentVideoData.videoUrl
-            });
-            saveFavorites();
-            showSuccess('Added to favorites! ❤️');
-        }
-        
-        function loadFavorites() {
-            const saved = localStorage.getItem('tiktok_favorites');
-            favorites = saved ? JSON.parse(saved) : [];
-            updateFavCount();
-            renderFavorites();
-        }
-        
-        function saveFavorites() {
-            localStorage.setItem('tiktok_favorites', JSON.stringify(favorites));
-            updateFavCount();
-            renderFavorites();
-        }
-        
-        function updateFavCount() {
-            document.getElementById('favCount').innerText = favorites.length;
-        }
-        
-        function renderFavorites() {
-            const container = document.getElementById('favoritesList');
-            if (!container) return;
-            if (favorites.length === 0) {
-                container.innerHTML = `<div class="empty-favorites" style="text-align:center;padding:30px;">No favorites yet.</div>`;
-                return;
-            }
-            let html = '';
-            favorites.forEach((fav, index) => {
-                html += `
-                    <div class="favorite-item" style="background:var(--favorite-bg);border:1px solid var(--favorite-border);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
-                        <div style="flex:1;">
-                            <div style="font-size:13px;font-weight:bold;">${escapeHtml(fav.title || 'No title')}</div>
-                            <div style="font-size:11px;">@${escapeHtml(fav.author)} | ❤️ ${formatNumber(fav.likes)}</div>
-                        </div>
-                        <div style="display:flex;gap:8px;">
-                            <button onclick="playFavorite(${index})" style="background:#28a745;padding:5px 12px;">▶️</button>
-                            <button onclick="deleteFavorite(${index})" style="background:#dc3545;padding:5px 12px;">🗑️</button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-        
-        function playFavorite(index) {
-            const fav = favorites[index];
-            if (fav && fav.videoUrl) {
-                document.getElementById('videoPreview').src = fav.videoUrl;
-                updateDownloadLink(fav.videoUrl);
-                displayVideoInfo({ title: fav.title, author: fav.author, likes: fav.likes });
-                document.getElementById('result').classList.add('show');
-                showTab('download');
-            }
-        }
-        
-        function deleteFavorite(index) {
-            favorites.splice(index, 1);
-            saveFavorites();
-            showSuccess('Removed from favorites');
         }
         
         // ========== COUNTER ==========
@@ -750,48 +646,89 @@
         }
         
         // ========== UI FUNCTIONS ==========
-        function showTab(tab) {
-            const downloadSection = document.getElementById('downloadSection');
-            const favoritesSection = document.getElementById('favoritesSection');
-            const downloadTab = document.getElementById('downloadTabBtn');
-            const favTab = document.getElementById('favoritesTabBtn');
-            if (tab === 'download') {
-                downloadSection.style.display = 'block';
-                favoritesSection.style.display = 'none';
-                downloadTab.classList.add('active');
-                favTab.classList.remove('active');
-            } else {
-                downloadSection.style.display = 'none';
-                favoritesSection.style.display = 'block';
-                downloadTab.classList.remove('active');
-                favTab.classList.add('active');
-                renderFavorites();
-            }
+        function formatNumber(num) { 
+            if (!num) return '0'; 
+            if (num >= 1000000) return (num/1000000).toFixed(1)+'M'; 
+            if (num >= 1000) return (num/1000).toFixed(1)+'K'; 
+            return num; 
         }
         
-        function formatNumber(num) { return num ? (num >= 1000000 ? (num/1000000).toFixed(1)+'M' : num >= 1000 ? (num/1000).toFixed(1)+'K' : num) : '0'; }
-        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-        function showSuccess(msg) { const d = document.createElement('div'); d.className = 'error'; d.style.background='#28a745'; d.style.color='white'; d.innerHTML='✅ '+msg; document.querySelector('.container').insertBefore(d, document.getElementById('result')); setTimeout(()=>d.remove(),2000); }
-        function showError(msg) { const d = document.createElement('div'); d.className = 'error'; d.innerHTML=msg; document.querySelector('.container').insertBefore(d, document.getElementById('result')); setTimeout(()=>d.remove(),3000); }
+        function escapeHtml(text) { 
+            if (!text) return ''; 
+            const div = document.createElement('div'); 
+            div.textContent = text; 
+            return div.innerHTML; 
+        }
+        
+        function showMessage(msg, color) { 
+            const d = document.createElement('div'); 
+            d.className = 'error'; 
+            d.style.background = color; 
+            d.style.color = 'white'; 
+            d.innerHTML = msg; 
+            const container = document.querySelector('.container');
+            const existing = container.querySelector('.error');
+            if (existing) existing.remove();
+            container.insertBefore(d, document.getElementById('result')); 
+            setTimeout(() => d.remove(), 3000); 
+        }
         
         // ========== LANGUAGE ==========
         const translations = {
-            en: { title: "🎵 TikTok Downloader", subtitle: "Download videos without watermark", placeholder: "Paste TikTok link...", button: "Download", processing: "Processing...", errorEmpty: "Enter link!", errorInvalid: "Only TikTok!", error: "Failed!", counterText: "Today Downloads:" },
-            bn: { title: "🎵 টিকটক ডাউনলোডার", subtitle: "ওয়াটারমার্ক ছাড়া ডাউনলোড করুন", placeholder: "টিকটক লিংক পেস্ট করুন...", button: "ডাউনলোড", processing: "প্রসেসিং...", errorEmpty: "লিংক দিন!", errorInvalid: "শুধু টিকটক!", error: "ব্যর্থ!", counterText: "আজকের ডাউনলোড:" }
+            en: { 
+                title: "🎵 TikTok Downloader", 
+                subtitle: "Download videos without watermark", 
+                placeholder: "Paste single TikTok link here...",
+                button: "Download", 
+                processing: "Processing...", 
+                counterText: "Today Downloads:",
+                batchTitle: "Batch Download (Max 5 links)"
+            },
+            bn: { 
+                title: "🎵 টিকটক ডাউনলোডার", 
+                subtitle: "ওয়াটারমার্ক ছাড়া ভিডিও ডাউনলোড করুন", 
+                placeholder: "একটি টিকটক লিংক পেস্ট করুন...",
+                button: "ডাউনলোড", 
+                processing: "প্রসেসিং...", 
+                counterText: "আজকের ডাউনলোড:",
+                batchTitle: "একসাথে ডাউনলোড (সর্বোচ্চ ৫টি লিংক)"
+            }
         };
+        
         let currentLang = 'en';
         function updateLanguage(lang) {
             currentLang = lang;
             document.getElementById('title').innerHTML = translations[lang].title;
             document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
             document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
-            document.getElementById('downloadBtn').innerHTML = translations[lang].button;
             document.getElementById('counterText').innerHTML = translations[lang].counterText;
+            document.getElementById('batchTitle').innerHTML = translations[lang].batchTitle;
             document.getElementById('langToggle').innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
+            
+            // Update button text
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) downloadBtn.innerHTML = translations[lang].button;
         }
-        document.getElementById('langToggle').addEventListener('click', () => { const newLang = currentLang === 'en' ? 'bn' : 'en'; updateLanguage(newLang); localStorage.setItem('language', newLang); });
+        
+        document.getElementById('langToggle').addEventListener('click', () => { 
+            const newLang = currentLang === 'en' ? 'bn' : 'en'; 
+            updateLanguage(newLang); 
+            localStorage.setItem('language', newLang); 
+        });
+        
         const savedLang = localStorage.getItem('language');
-        if (savedLang === 'bn') updateLanguage('bn'); else updateLanguage('en');
+        if (savedLang === 'bn') updateLanguage('bn'); 
+        else updateLanguage('en');
+        
+        // Add download button to DOM if not exists
+        const inputGroup = document.querySelector('.input-group');
+        if (!document.getElementById('downloadBtn')) {
+            const btn = document.createElement('button');
+            btn.id = 'downloadBtn';
+            btn.innerHTML = translations[currentLang].button;
+            btn.onclick = downloadVideo;
+            inputGroup.appendChild(btn);
+        }
         
         // ========== THEME ==========
         const themeToggle = document.getElementById('themeToggle');
@@ -799,19 +736,21 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') { body.classList.add('dark'); themeToggle.innerHTML = '☀️'; }
         else themeToggle.innerHTML = '🌙';
-        themeToggle.addEventListener('click', () => { body.classList.toggle('dark'); localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light'); themeToggle.innerHTML = body.classList.contains('dark') ? '☀️' : '🌙'; });
+        
+        themeToggle.addEventListener('click', () => { 
+            body.classList.toggle('dark'); 
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light'); 
+            themeToggle.innerHTML = body.classList.contains('dark') ? '☀️' : '🌙'; 
+        });
         
         document.getElementById('videoUrl').addEventListener('keypress', (e) => { if (e.key === 'Enter') downloadVideo(); });
+        
+        // Make functions global
         window.downloadVideo = downloadVideo;
         window.clearLink = clearLink;
-        window.batchDownload = batchDownload;
-        window.showTab = showTab;
-        window.saveCurrentToFavorites = saveCurrentToFavorites;
-        window.playFavorite = playFavorite;
-        window.deleteFavorite = deleteFavorite;
+        window.startBatchDownload = startBatchDownload;
         
         loadDownloadCounter();
-        loadFavorites();
     </script>
 </body>
 </html>
