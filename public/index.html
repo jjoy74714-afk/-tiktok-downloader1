@@ -11,7 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* Light Mode (Default) */
         :root {
             --bg-gradient1: #667eea;
             --bg-gradient2: #764ba2;
@@ -25,15 +24,13 @@
             --shadow-color: rgba(0,0,0,0.3);
             --error-bg: #f8d7da;
             --error-text: #721c24;
-            --lang-btn-bg: #f0f0f0;
-            --lang-btn-text: #333;
             --video-info-bg: #f8f9fa;
             --counter-bg: #e8f0fe;
             --favorite-bg: #fff9e6;
             --favorite-border: #ffc107;
+            --quality-bg: #f0f0f0;
         }
 
-        /* Dark Mode */
         body.dark {
             --bg-gradient1: #1a1a2e;
             --bg-gradient2: #16213e;
@@ -47,12 +44,11 @@
             --shadow-color: rgba(0,0,0,0.5);
             --error-bg: #5a1a1a;
             --error-text: #ffaaaa;
-            --lang-btn-bg: #2d2d44;
-            --lang-btn-text: #f0f0f0;
             --video-info-bg: #2a2a3e;
             --counter-bg: #1a2a3e;
             --favorite-bg: #2a2a1e;
             --favorite-border: #ffc107;
+            --quality-bg: #2a2a3e;
         }
 
         body {
@@ -70,11 +66,11 @@
             background: var(--container-bg);
             border-radius: 20px;
             padding: 40px;
-            max-width: 650px;
+            max-width: 700px;
             width: 100%;
             box-shadow: 0 20px 60px var(--shadow-color);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s;
         }
 
         /* Logo Section */
@@ -84,18 +80,6 @@
             justify-content: center;
             gap: 12px;
             margin-bottom: 15px;
-            animation: logoPop 0.6s ease-out;
-        }
-
-        @keyframes logoPop {
-            from {
-                opacity: 0;
-                transform: scale(0.5) rotate(-180deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
         }
 
         .logo-icon {
@@ -107,12 +91,6 @@
             align-items: center;
             justify-content: center;
             font-size: 30px;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s;
-        }
-
-        .logo-icon:hover {
-            transform: scale(1.05) rotate(5deg);
         }
 
         .brand-name {
@@ -141,13 +119,69 @@
             gap: 8px;
             font-size: 13px;
             font-weight: bold;
-            color: var(--text-color);
         }
 
         .counter-number {
             font-size: 20px;
             font-weight: bold;
             color: #667eea;
+        }
+
+        /* Clear Link Button */
+        .clear-link-btn {
+            background: #6c757d;
+            padding: 14px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .clear-link-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Quality Selector */
+        .quality-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .quality-btn {
+            background: var(--quality-bg);
+            color: var(--text-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .quality-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* Multiple Links Input */
+        .multiple-links-input {
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .multiple-links-input textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
         }
 
         /* Favorite Tabs */
@@ -172,82 +206,36 @@
             color: white;
         }
 
-        /* Favorites List */
-        .favorites-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 20px;
+        /* Batch Download Progress */
+        .batch-progress {
+            background: var(--counter-bg);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
             display: none;
         }
 
-        .favorites-list.show {
+        .batch-progress.show {
             display: block;
         }
 
-        .favorite-item {
-            background: var(--favorite-bg);
-            border: 1px solid var(--favorite-border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
+        .progress-bar {
+            background: var(--border-color);
+            border-radius: 10px;
+            height: 8px;
+            margin-top: 8px;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .favorite-info {
-            flex: 1;
-            text-align: left;
-        }
-
-        .favorite-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--text-color);
-            margin-bottom: 5px;
-            word-break: break-word;
-        }
-
-        .favorite-meta {
-            font-size: 11px;
-            color: var(--subtitle-color);
-        }
-
-        .favorite-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .fav-btn-small {
-            background: none;
-            padding: 5px 10px;
-            font-size: 12px;
-            width: auto;
-        }
-
-        .fav-btn-small:hover {
-            transform: scale(1.05);
-        }
-
-        .empty-favorites {
-            text-align: center;
-            padding: 30px;
-            color: var(--subtitle-color);
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s;
         }
 
         h1 {
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
             font-size: 24px;
         }
 
@@ -264,7 +252,7 @@
             flex-wrap: wrap;
         }
 
-        input {
+        input, textarea {
             flex: 1;
             padding: 14px 18px;
             border: 2px solid var(--border-color);
@@ -273,11 +261,11 @@
             outline: none;
             background: var(--input-bg);
             color: var(--text-color);
-            transition: all 0.3s;
         }
 
-        input:focus {
-            border-color: #667eea;
+        textarea {
+            border-radius: 20px;
+            font-family: inherit;
         }
 
         button {
@@ -296,11 +284,6 @@
             transform: scale(1.03);
         }
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
         .result {
             margin-top: 25px;
             display: none;
@@ -308,18 +291,6 @@
 
         .result.show {
             display: block;
-            animation: resultPop 0.4s ease;
-        }
-
-        @keyframes resultPop {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         video {
@@ -328,7 +299,6 @@
             margin-bottom: 12px;
         }
 
-        /* Video Info Card */
         .video-info-card {
             background: var(--video-info-bg);
             border-radius: 12px;
@@ -340,31 +310,7 @@
         .video-title {
             font-size: 13px;
             font-weight: bold;
-            color: var(--text-color);
             margin-bottom: 8px;
-        }
-
-        .video-stats {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-            font-size: 11px;
-        }
-
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--subtitle-color);
-        }
-
-        .video-author {
-            font-size: 11px;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .download-btn {
@@ -375,11 +321,6 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .download-btn:hover {
-            background: #218838;
         }
 
         .favorite-btn {
@@ -387,15 +328,6 @@
             color: #333;
             margin-left: 10px;
             padding: 10px 18px;
-        }
-
-        .favorite-btn:hover {
-            background: #e0a800;
-        }
-
-        .favorite-btn.saved {
-            background: #dc3545;
-            color: white;
         }
 
         .error {
@@ -428,19 +360,16 @@
             border-radius: 10px;
             margin-top: 18px;
             font-size: 11px;
-            color: var(--info-text);
         }
 
         .footer {
             margin-top: 18px;
             font-size: 10px;
-            color: var(--subtitle-color);
             text-align: center;
             border-top: 1px solid var(--border-color);
             padding-top: 12px;
         }
 
-        /* Theme & Language Toggle */
         .theme-toggle, .lang-toggle {
             position: fixed;
             top: 20px;
@@ -456,7 +385,6 @@
             z-index: 1000;
             font-size: 20px;
             border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .theme-toggle { right: 20px; }
@@ -464,19 +392,17 @@
 
         @media (max-width: 480px) {
             .container { padding: 20px; }
-            .input-group { flex-direction: column; }
-            button { width: 100%; }
             .theme-toggle, .lang-toggle { width: 38px; height: 38px; font-size: 16px; }
             .lang-toggle { right: 65px; }
-            .favorite-item { flex-direction: column; gap: 8px; }
-            .favorite-actions { justify-content: flex-end; width: 100%; }
+            .quality-selector { gap: 5px; }
+            .quality-btn { padding: 5px 12px; font-size: 11px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <button class="theme-toggle" id="themeToggle" title="Dark/Light Mode">🌙</button>
-    <button class="lang-toggle" id="langToggle" title="বাংলা / English">🇧🇩 EN</button>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <button class="lang-toggle" id="langToggle">🇧🇩 EN</button>
     
     <div class="container">
         <div class="logo-section">
@@ -484,11 +410,10 @@
             <div><div class="brand-name">TikSave</div><div class="brand-tag">by MEHEDI</div></div>
         </div>
         
-        <div class="download-counter" id="downloadCounter">
+        <div class="download-counter">
             <i class="fas fa-download"></i> <span id="counterText">Today Downloads:</span> <span class="counter-number" id="counterValue">0</span>
         </div>
         
-        <!-- Favorite Tabs -->
         <div class="favorite-tabs">
             <button class="tab-btn active" id="downloadTabBtn" onclick="showTab('download')"><i class="fas fa-download"></i> Download</button>
             <button class="tab-btn" id="favoritesTabBtn" onclick="showTab('favorites')"><i class="fas fa-heart"></i> Favorites (<span id="favCount">0</span>)</button>
@@ -499,15 +424,38 @@
             <h1 id="title">🎵 TikTok Downloader</h1>
             <p id="subtitle" class="subtitle">Download videos without watermark</p>
             
+            <!-- Quality Selector -->
+            <div class="quality-selector" id="qualitySelector">
+                <button class="quality-btn active" data-quality="hd">1080p HD</button>
+                <button class="quality-btn" data-quality="sd">720p</button>
+                <button class="quality-btn" data-quality="mp3">MP3 (Audio Only)</button>
+            </div>
+            
+            <!-- Single Link Input -->
             <div class="input-group">
                 <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
-                <button id="downloadBtn" onclick="downloadVideo()">Download</button>
+                <button id="clearLinkBtn" class="clear-link-btn" onclick="clearLink()">Clear</button>
+            </div>
+            
+            <!-- Multiple Links Section -->
+            <div class="multiple-links-input">
+                <div style="margin-bottom: 8px; font-size: 12px;">
+                    <i class="fas fa-link"></i> Or paste multiple links (one per line, max 5):
+                </div>
+                <textarea id="multipleUrls" placeholder="https://www.tiktok.com/@user/video/123456789&#10;https://www.tiktok.com/@user/video/987654321&#10;https://www.tiktok.com/@user/video/456789123" rows="3"></textarea>
+                <button id="batchDownloadBtn" onclick="batchDownload()" style="margin-top: 10px; width: 100%;">📦 Download All (Max 5)</button>
+            </div>
+            
+            <!-- Batch Progress -->
+            <div id="batchProgress" class="batch-progress">
+                <div id="batchStatus">Preparing...</div>
+                <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
             </div>
             
             <div id="result" class="result">
                 <video id="videoPreview" controls></video>
                 <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
-                <div style="display: flex; gap: 10px; justify-content: center;">
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                     <a id="downloadLink" class="download-btn" download>Save Video</a>
                     <button id="saveFavoriteBtn" class="favorite-btn" onclick="saveCurrentToFavorites()">❤️ Save to Favorites</button>
                 </div>
@@ -518,242 +466,117 @@
         <div id="favoritesSection" style="display: none;">
             <h1><i class="fas fa-heart"></i> My Favorites</h1>
             <p class="subtitle">Your saved videos</p>
-            <div id="favoritesList" class="favorites-list"></div>
+            <div id="favoritesList" class="favorites-list" style="max-height: 400px; overflow-y: auto;"></div>
         </div>
         
         <div id="info" class="info">
-            <strong>How to use:</strong><br>1. Tap share on TikTok<br>2. Copy Link<br>3. Paste & Download
+            <strong>Features:</strong> Clear Link | 1080p/720p/MP3 | Batch Download (5 links) | Favorites
         </div>
         
         <div class="footer"><i class="fab fa-tiktok"></i> TikSave by MEHEDI | © 2026</div>
     </div>
 
     <script>
-        // ========== FAVORITES SYSTEM ==========
-        let favorites = [];
+        // ========== VARIABLES ==========
+        let currentQuality = 'hd';
         let currentVideoData = null;
-        
-        function loadFavorites() {
-            const saved = localStorage.getItem('tiktok_favorites');
-            if (saved) {
-                favorites = JSON.parse(saved);
-            } else {
-                favorites = [];
-            }
-            updateFavCount();
-            renderFavorites();
-        }
-        
-        function saveFavorites() {
-            localStorage.setItem('tiktok_favorites', JSON.stringify(favorites));
-            updateFavCount();
-            renderFavorites();
-        }
-        
-        function updateFavCount() {
-            document.getElementById('favCount').innerText = favorites.length;
-        }
-        
-        function renderFavorites() {
-            const container = document.getElementById('favoritesList');
-            if (!container) return;
-            
-            if (favorites.length === 0) {
-                container.innerHTML = `<div class="empty-favorites"><i class="far fa-heart"></i> No favorites yet.<br>Download a video and click "Save to Favorites"</div>`;
-                container.classList.add('show');
-                return;
-            }
-            
-            let html = '';
-            favorites.forEach((fav, index) => {
-                html += `
-                    <div class="favorite-item" data-id="${index}">
-                        <div class="favorite-info">
-                            <div class="favorite-title">${escapeHtml(fav.title || 'No title')}</div>
-                            <div class="favorite-meta"><i class="fab fa-tiktok"></i> @${escapeHtml(fav.author || 'unknown')} | ❤️ ${formatNumber(fav.likes)}</div>
-                        </div>
-                        <div class="favorite-actions">
-                            <button class="fav-btn-small" onclick="playFavorite('${index}')" style="background:#28a745;"><i class="fas fa-play"></i></button>
-                            <button class="fav-btn-small" onclick="downloadFavorite('${index}')" style="background:#007bff;"><i class="fas fa-download"></i></button>
-                            <button class="fav-btn-small" onclick="deleteFavorite('${index}')" style="background:#dc3545;"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-            container.classList.add('show');
-        }
-        
-        function saveCurrentToFavorites() {
-            if (!currentVideoData || !currentVideoData.videoUrl) {
-                showError('No video loaded! Download a video first.');
-                return;
-            }
-            
-            // Check if already exists
-            const exists = favorites.some(f => f.videoUrl === currentVideoData.videoUrl);
-            if (exists) {
-                showError('Video already in favorites!');
-                return;
-            }
-            
-            favorites.push({
-                id: Date.now(),
-                title: currentVideoData.title || 'TikTok Video',
-                author: currentVideoData.author || 'unknown',
-                likes: currentVideoData.likes || 0,
-                videoUrl: currentVideoData.videoUrl,
-                thumbnail: currentVideoData.thumbnail,
-                savedAt: new Date().toISOString()
-            });
-            
-            saveFavorites();
-            showSuccess('Added to favorites! ❤️');
-            
-            // Change button style temporarily
-            const favBtn = document.getElementById('saveFavoriteBtn');
-            favBtn.innerHTML = '✅ Saved!';
-            setTimeout(() => {
-                favBtn.innerHTML = '❤️ Save to Favorites';
-            }, 2000);
-        }
-        
-        function playFavorite(index) {
-            const fav = favorites[index];
-            if (fav && fav.videoUrl) {
-                const resultDiv = document.getElementById('result');
-                const videoPreview = document.getElementById('videoPreview');
-                const downloadLink = document.getElementById('downloadLink');
-                
-                videoPreview.src = fav.videoUrl;
-                downloadLink.href = `/api/proxy?url=${encodeURIComponent(fav.videoUrl)}`;
-                downloadLink.download = `tiktok_${Date.now()}.mp4`;
-                
-                // Show video info
-                displayVideoInfo({
-                    title: fav.title,
-                    author: fav.author,
-                    likes: fav.likes
-                });
-                
-                resultDiv.classList.add('show');
-                showTab('download');
-            }
-        }
-        
-        function downloadFavorite(index) {
-            const fav = favorites[index];
-            if (fav && fav.videoUrl) {
-                window.open(`/api/proxy?url=${encodeURIComponent(fav.videoUrl)}`, '_blank');
-            }
-        }
-        
-        function deleteFavorite(index) {
-            if (confirm('Remove this video from favorites?')) {
-                favorites.splice(index, 1);
-                saveFavorites();
-                showSuccess('Removed from favorites');
-            }
-        }
-        
-        // ========== DOWNLOAD COUNTER ==========
         let downloadCount = 0;
         let todayDate = new Date().toDateString();
+        let favorites = [];
         
-        function loadDownloadCounter() {
-            const savedData = localStorage.getItem('tiktok_download_counter');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                if (data.date === todayDate) downloadCount = data.count;
-                else downloadCount = 0;
-            }
-            updateCounterDisplay();
-        }
+        // ========== QUALITY SELECTOR ==========
+        document.querySelectorAll('.quality-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentQuality = this.getAttribute('data-quality');
+                if (currentVideoData && currentVideoData.videoUrl) {
+                    updateDownloadLink(currentVideoData.videoUrl);
+                }
+            });
+        });
         
-        function saveDownloadCounter() {
-            localStorage.setItem('tiktok_download_counter', JSON.stringify({ date: todayDate, count: downloadCount }));
-        }
-        
-        function updateCounterDisplay() {
-            document.getElementById('counterValue').innerText = downloadCount;
-        }
-        
-        function incrementDownloadCounter() {
-            downloadCount++;
-            saveDownloadCounter();
-            updateCounterDisplay();
-        }
-        
-        // ========== UI FUNCTIONS ==========
-        function showTab(tab) {
-            const downloadSection = document.getElementById('downloadSection');
-            const favoritesSection = document.getElementById('favoritesSection');
-            const downloadTab = document.getElementById('downloadTabBtn');
-            const favTab = document.getElementById('favoritesTabBtn');
-            
-            if (tab === 'download') {
-                downloadSection.style.display = 'block';
-                favoritesSection.style.display = 'none';
-                downloadTab.classList.add('active');
-                favTab.classList.remove('active');
+        function updateDownloadLink(videoUrl) {
+            const downloadLink = document.getElementById('downloadLink');
+            if (currentQuality === 'mp3') {
+                downloadLink.href = `/api/proxy?url=${encodeURIComponent(videoUrl)}&format=mp3`;
+                downloadLink.innerText = '🎵 Download MP3';
             } else {
-                downloadSection.style.display = 'none';
-                favoritesSection.style.display = 'block';
-                downloadTab.classList.remove('active');
-                favTab.classList.add('active');
-                renderFavorites();
+                downloadLink.href = `/api/proxy?url=${encodeURIComponent(videoUrl)}`;
+                downloadLink.innerText = currentQuality === 'hd' ? '📥 Download HD (1080p)' : '📥 Download (720p)';
             }
         }
         
-        function formatNumber(num) {
-            if (!num) return '0';
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num.toString();
+        // ========== CLEAR LINK ==========
+        function clearLink() {
+            document.getElementById('videoUrl').value = '';
+            document.getElementById('multipleUrls').value = '';
+            document.getElementById('result').classList.remove('show');
+            showSuccess('Link cleared!');
         }
         
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        function showSuccess(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error';
-            errorDiv.style.background = '#28a745';
-            errorDiv.style.color = 'white';
-            errorDiv.innerHTML = '✅ ' + message;
-            const container = document.querySelector('.container');
-            const existing = container.querySelector('.error');
-            if (existing) existing.remove();
-            container.insertBefore(errorDiv, document.getElementById('result'));
-            setTimeout(() => errorDiv.remove(), 2000);
-        }
-        
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error';
-            errorDiv.innerHTML = message;
-            const container = document.querySelector('.container');
-            const existing = container.querySelector('.error');
-            if (existing) existing.remove();
-            container.insertBefore(errorDiv, document.getElementById('result'));
-            setTimeout(() => errorDiv.remove(), 3000);
-        }
-        
-        function displayVideoInfo(data) {
-            const infoCard = document.getElementById('videoInfoCard');
-            const html = `
-                <div class="video-title"><i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}</div>
-                <div class="video-stats">
-                    <div class="stat"><i class="fas fa-heart" style="color:#ff4444;"></i> ${formatNumber(data.likes)} ${translations[currentLang]?.likes || 'Likes'}</div>
-                    <div class="stat"><i class="fab fa-tiktok"></i> @${escapeHtml(data.author || 'unknown')}</div>
-                </div>
-            `;
-            infoCard.innerHTML = html;
-            infoCard.style.display = 'block';
+        // ========== BATCH DOWNLOAD ==========
+        async function batchDownload() {
+            const urlsText = document.getElementById('multipleUrls').value;
+            if (!urlsText.trim()) {
+                showError('Please paste TikTok links!');
+                return;
+            }
+            
+            let urls = urlsText.split('\n').filter(u => u.trim() && u.includes('tiktok.com'));
+            urls = [...new Set(urls)]; // Remove duplicates
+            
+            if (urls.length > 5) {
+                showError('Maximum 5 links allowed! Only first 5 will be processed.');
+                urls = urls.slice(0, 5);
+            }
+            
+            if (urls.length === 0) {
+                showError('No valid TikTok links found!');
+                return;
+            }
+            
+            const batchDiv = document.getElementById('batchProgress');
+            const statusSpan = document.getElementById('batchStatus');
+            const progressFill = document.getElementById('progressFill');
+            batchDiv.classList.add('show');
+            
+            let completed = 0;
+            let successCount = 0;
+            
+            for (let i = 0; i < urls.length; i++) {
+                const url = urls[i].trim();
+                statusSpan.innerHTML = `Processing ${i+1}/${urls.length}: ${url.substring(0, 50)}...`;
+                progressFill.style.width = `${(i / urls.length) * 100}%`;
+                
+                try {
+                    const response = await fetch('/api/download', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url: url })
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success && data.videoUrl) {
+                        successCount++;
+                        // Trigger download
+                        const link = document.createElement('a');
+                        link.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
+                        link.download = `tiktok_${Date.now()}_${i}.mp4`;
+                        link.click();
+                        incrementDownloadCounter();
+                        await new Promise(r => setTimeout(r, 1000));
+                    }
+                } catch (err) {
+                    console.error('Batch error:', err);
+                }
+                completed++;
+                progressFill.style.width = `${(completed / urls.length) * 100}%`;
+            }
+            
+            statusSpan.innerHTML = `✅ Complete! ${successCount}/${urls.length} videos downloaded.`;
+            setTimeout(() => batchDiv.classList.remove('show'), 5000);
+            showSuccess(`${successCount} videos downloaded!`);
         }
         
         // ========== DOWNLOAD FUNCTION ==========
@@ -785,8 +608,7 @@
                 
                 if (data.success && data.videoUrl) {
                     videoPreview.src = data.videoUrl;
-                    downloadLink.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
-                    downloadLink.download = `tiktok_${Date.now()}.mp4`;
+                    updateDownloadLink(data.videoUrl);
                     
                     currentVideoData = {
                         title: data.title,
@@ -810,20 +632,153 @@
             }
         }
         
-        // ========== LANGUAGE & THEME ==========
-        const translations = {
-            en: {
-                title: "🎵 TikTok Downloader", subtitle: "Download videos without watermark", placeholder: "Paste TikTok link...",
-                button: "Download", saveBtn: "Save Video", processing: "Processing...", errorEmpty: "Enter TikTok link!",
-                errorInvalid: "Only TikTok links!", error: "Download failed!", likes: "Likes", counterText: "Today Downloads:"
-            },
-            bn: {
-                title: "🎵 টিকটক ডাউনলোডার", subtitle: "ওয়াটারমার্ক ছাড়া ডাউনলোড করুন", placeholder: "টিকটক লিংক পেস্ট করুন...",
-                button: "ডাউনলোড", saveBtn: "ভিডিও সেভ করুন", processing: "প্রসেসিং...", errorEmpty: "টিকটক লিংক দিন!",
-                errorInvalid: "শুধু টিকটক লিংক!", error: "ডাউনলোড ব্যর্থ!", likes: "লাইক", counterText: "আজকের ডাউনলোড:"
-            }
-        };
+        function displayVideoInfo(data) {
+            const infoCard = document.getElementById('videoInfoCard');
+            infoCard.innerHTML = `
+                <div class="video-title"><i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}</div>
+                <div class="video-stats" style="display: flex; gap: 12px; font-size: 12px;">
+                    <span><i class="fas fa-heart" style="color:#ff4444;"></i> ${formatNumber(data.likes)}</span>
+                    <span><i class="fab fa-tiktok"></i> @${escapeHtml(data.author || 'unknown')}</span>
+                </div>
+            `;
+            infoCard.style.display = 'block';
+        }
         
+        // ========== FAVORITES ==========
+        function saveCurrentToFavorites() {
+            if (!currentVideoData || !currentVideoData.videoUrl) {
+                showError('Download a video first!');
+                return;
+            }
+            if (favorites.some(f => f.videoUrl === currentVideoData.videoUrl)) {
+                showError('Already in favorites!');
+                return;
+            }
+            favorites.push({
+                id: Date.now(),
+                title: currentVideoData.title || 'TikTok Video',
+                author: currentVideoData.author || 'unknown',
+                likes: currentVideoData.likes || 0,
+                videoUrl: currentVideoData.videoUrl
+            });
+            saveFavorites();
+            showSuccess('Added to favorites! ❤️');
+        }
+        
+        function loadFavorites() {
+            const saved = localStorage.getItem('tiktok_favorites');
+            favorites = saved ? JSON.parse(saved) : [];
+            updateFavCount();
+            renderFavorites();
+        }
+        
+        function saveFavorites() {
+            localStorage.setItem('tiktok_favorites', JSON.stringify(favorites));
+            updateFavCount();
+            renderFavorites();
+        }
+        
+        function updateFavCount() {
+            document.getElementById('favCount').innerText = favorites.length;
+        }
+        
+        function renderFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+            if (favorites.length === 0) {
+                container.innerHTML = `<div class="empty-favorites" style="text-align:center;padding:30px;">No favorites yet.</div>`;
+                return;
+            }
+            let html = '';
+            favorites.forEach((fav, index) => {
+                html += `
+                    <div class="favorite-item" style="background:var(--favorite-bg);border:1px solid var(--favorite-border);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                        <div style="flex:1;">
+                            <div style="font-size:13px;font-weight:bold;">${escapeHtml(fav.title || 'No title')}</div>
+                            <div style="font-size:11px;">@${escapeHtml(fav.author)} | ❤️ ${formatNumber(fav.likes)}</div>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <button onclick="playFavorite(${index})" style="background:#28a745;padding:5px 12px;">▶️</button>
+                            <button onclick="deleteFavorite(${index})" style="background:#dc3545;padding:5px 12px;">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        
+        function playFavorite(index) {
+            const fav = favorites[index];
+            if (fav && fav.videoUrl) {
+                document.getElementById('videoPreview').src = fav.videoUrl;
+                updateDownloadLink(fav.videoUrl);
+                displayVideoInfo({ title: fav.title, author: fav.author, likes: fav.likes });
+                document.getElementById('result').classList.add('show');
+                showTab('download');
+            }
+        }
+        
+        function deleteFavorite(index) {
+            favorites.splice(index, 1);
+            saveFavorites();
+            showSuccess('Removed from favorites');
+        }
+        
+        // ========== COUNTER ==========
+        function loadDownloadCounter() {
+            const saved = localStorage.getItem('tiktok_download_counter');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.date === todayDate) downloadCount = data.count;
+                else downloadCount = 0;
+            }
+            updateCounterDisplay();
+        }
+        
+        function saveDownloadCounter() {
+            localStorage.setItem('tiktok_download_counter', JSON.stringify({ date: todayDate, count: downloadCount }));
+        }
+        
+        function updateCounterDisplay() {
+            document.getElementById('counterValue').innerText = downloadCount;
+        }
+        
+        function incrementDownloadCounter() {
+            downloadCount++;
+            saveDownloadCounter();
+            updateCounterDisplay();
+        }
+        
+        // ========== UI FUNCTIONS ==========
+        function showTab(tab) {
+            const downloadSection = document.getElementById('downloadSection');
+            const favoritesSection = document.getElementById('favoritesSection');
+            const downloadTab = document.getElementById('downloadTabBtn');
+            const favTab = document.getElementById('favoritesTabBtn');
+            if (tab === 'download') {
+                downloadSection.style.display = 'block';
+                favoritesSection.style.display = 'none';
+                downloadTab.classList.add('active');
+                favTab.classList.remove('active');
+            } else {
+                downloadSection.style.display = 'none';
+                favoritesSection.style.display = 'block';
+                downloadTab.classList.remove('active');
+                favTab.classList.add('active');
+                renderFavorites();
+            }
+        }
+        
+        function formatNumber(num) { return num ? (num >= 1000000 ? (num/1000000).toFixed(1)+'M' : num >= 1000 ? (num/1000).toFixed(1)+'K' : num) : '0'; }
+        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function showSuccess(msg) { const d = document.createElement('div'); d.className = 'error'; d.style.background='#28a745'; d.style.color='white'; d.innerHTML='✅ '+msg; document.querySelector('.container').insertBefore(d, document.getElementById('result')); setTimeout(()=>d.remove(),2000); }
+        function showError(msg) { const d = document.createElement('div'); d.className = 'error'; d.innerHTML=msg; document.querySelector('.container').insertBefore(d, document.getElementById('result')); setTimeout(()=>d.remove(),3000); }
+        
+        // ========== LANGUAGE ==========
+        const translations = {
+            en: { title: "🎵 TikTok Downloader", subtitle: "Download videos without watermark", placeholder: "Paste TikTok link...", button: "Download", processing: "Processing...", errorEmpty: "Enter link!", errorInvalid: "Only TikTok!", error: "Failed!", counterText: "Today Downloads:" },
+            bn: { title: "🎵 টিকটক ডাউনলোডার", subtitle: "ওয়াটারমার্ক ছাড়া ডাউনলোড করুন", placeholder: "টিকটক লিংক পেস্ট করুন...", button: "ডাউনলোড", processing: "প্রসেসিং...", errorEmpty: "লিংক দিন!", errorInvalid: "শুধু টিকটক!", error: "ব্যর্থ!", counterText: "আজকের ডাউনলোড:" }
+        };
         let currentLang = 'en';
         function updateLanguage(lang) {
             currentLang = lang;
@@ -831,35 +786,29 @@
             document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
             document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
             document.getElementById('downloadBtn').innerHTML = translations[lang].button;
-            document.getElementById('downloadLink').innerHTML = translations[lang].saveBtn;
             document.getElementById('counterText').innerHTML = translations[lang].counterText;
-            langToggle.innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
+            document.getElementById('langToggle').innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
         }
-        
-        const langToggle = document.getElementById('langToggle');
-        langToggle.addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'bn' : 'en';
-            updateLanguage(newLang);
-            localStorage.setItem('language', newLang);
-        });
-        
+        document.getElementById('langToggle').addEventListener('click', () => { const newLang = currentLang === 'en' ? 'bn' : 'en'; updateLanguage(newLang); localStorage.setItem('language', newLang); });
         const savedLang = localStorage.getItem('language');
-        if (savedLang === 'bn') updateLanguage('bn');
-        else updateLanguage('en');
+        if (savedLang === 'bn') updateLanguage('bn'); else updateLanguage('en');
         
+        // ========== THEME ==========
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') { body.classList.add('dark'); themeToggle.innerHTML = '☀️'; }
         else themeToggle.innerHTML = '🌙';
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
-            themeToggle.innerHTML = body.classList.contains('dark') ? '☀️' : '🌙';
-        });
+        themeToggle.addEventListener('click', () => { body.classList.toggle('dark'); localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light'); themeToggle.innerHTML = body.classList.contains('dark') ? '☀️' : '🌙'; });
         
         document.getElementById('videoUrl').addEventListener('keypress', (e) => { if (e.key === 'Enter') downloadVideo(); });
+        window.downloadVideo = downloadVideo;
+        window.clearLink = clearLink;
+        window.batchDownload = batchDownload;
+        window.showTab = showTab;
+        window.saveCurrentToFavorites = saveCurrentToFavorites;
+        window.playFavorite = playFavorite;
+        window.deleteFavorite = deleteFavorite;
         
         loadDownloadCounter();
         loadFavorites();
