@@ -1,58 +1,188 @@
+
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok ডাউনলোডার</title>
+    <title>TikTok Downloader</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* Light Mode (Default) */
+        :root {
+            --bg-gradient1: #667eea;
+            --bg-gradient2: #764ba2;
+            --container-bg: white;
+            --text-color: #333;
+            --subtitle-color: #666;
+            --border-color: #e0e0e0;
+            --input-bg: white;
+            --info-bg: #e7f3ff;
+            --info-text: #333;
+            --shadow-color: rgba(0,0,0,0.3);
+            --error-bg: #f8d7da;
+            --error-text: #721c24;
+        }
+
+        /* Dark Mode */
+        body.dark {
+            --bg-gradient1: #1a1a2e;
+            --bg-gradient2: #16213e;
+            --container-bg: #1e1e2f;
+            --text-color: #f0f0f0;
+            --subtitle-color: #aaa;
+            --border-color: #333;
+            --input-bg: #2d2d44;
+            --info-bg: #2d2d44;
+            --info-text: #ddd;
+            --shadow-color: rgba(0,0,0,0.5);
+            --error-bg: #5a1a1a;
+            --error-text: #ffaaaa;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--bg-gradient1) 0%, var(--bg-gradient2) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.5s ease;
+            animation: bgPulse 10s ease-in-out infinite;
         }
+        
+        /* Background subtle animation */
+        @keyframes bgPulse {
+            0%, 100% {
+                background: linear-gradient(135deg, var(--bg-gradient1) 0%, var(--bg-gradient2) 100%);
+            }
+            50% {
+                background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            }
+        }
+        
         .container {
-            background: white;
+            background: var(--container-bg);
             border-radius: 20px;
             padding: 40px;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px var(--shadow-color);
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: containerFadeIn 0.6s ease-out, containerGlow 3s ease-in-out infinite;
         }
+        
+        @keyframes containerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes containerGlow {
+            0%, 100% {
+                box-shadow: 0 20px 60px var(--shadow-color);
+            }
+            50% {
+                box-shadow: 0 25px 70px rgba(102, 126, 234, 0.4);
+            }
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
         h1 {
-            color: #333;
+            color: var(--text-color);
             margin-bottom: 10px;
+            animation: titleSlideIn 0.8s ease-out;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
         }
+        
+        @keyframes titleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         .subtitle {
-            color: #666;
+            color: var(--subtitle-color);
             margin-bottom: 30px;
+            animation: subtitleFadeIn 0.8s ease-out 0.2s both;
         }
+        
+        @keyframes subtitleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .input-group {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            animation: inputGroupSlide 0.8s ease-out 0.3s both;
         }
+        
+        @keyframes inputGroupSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         input {
             flex: 1;
             padding: 15px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-color);
             border-radius: 50px;
             font-size: 16px;
             outline: none;
+            background: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         input:focus {
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            transform: scale(1.02);
         }
+        
+        input:hover {
+            transform: translateX(5px);
+            border-color: #764ba2;
+        }
+        
         button {
             padding: 15px 30px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -62,23 +192,86 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
+        
         .result {
             margin-top: 30px;
             display: none;
+            animation: resultPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        
         .result.show {
             display: block;
         }
+        
+        @keyframes resultPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
         video {
             max-width: 100%;
             border-radius: 10px;
             margin-bottom: 15px;
+            animation: videoGlow 2s ease-in-out infinite;
+            transition: transform 0.3s;
         }
+        
+        video:hover {
+            transform: scale(1.02);
+        }
+        
+        @keyframes videoGlow {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            }
+        }
+        
         .download-btn {
             display: inline-block;
             padding: 12px 25px;
@@ -87,14 +280,47 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+            background: #218838;
+        }
+        
         .error {
-            background: #f8d7da;
-            color: #721c24;
+            background: var(--error-bg);
+            color: var(--error-text);
             padding: 12px;
             border-radius: 10px;
             margin-top: 15px;
+            animation: errorShake 0.5s ease;
         }
+        
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
         .loading {
             display: inline-block;
             width: 20px;
@@ -105,48 +331,167 @@
             animation: spin 1s linear infinite;
             margin-right: 10px;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
         .info {
-            background: #e7f3ff;
+            background: var(--info-bg);
             padding: 15px;
             border-radius: 10px;
             margin-top: 20px;
             font-size: 12px;
+            color: var(--info-text);
+            animation: infoSlideUp 0.8s ease-out 0.5s both;
+            transition: all 0.3s;
         }
+        
+        @keyframes infoSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: themeBtnPop 0.6s ease-out;
+        }
+        
+        @keyframes themeBtnPop {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Result items individual animations */
+        .result.show video {
+            animation: videoReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes videoReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.9) rotateX(-15deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateX(0);
+            }
+        }
+        
+        .result.show .download-btn {
+            animation: btnReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+        }
+        
+        @keyframes btnReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         @media (max-width: 480px) {
             .container { padding: 25px; }
             .input-group { flex-direction: column; }
             button { width: 100%; }
+            .theme-toggle { width: 40px; height: 40px; font-size: 18px; top: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+    
     <div class="container">
-        <h1>🎵 TikTok ডাউনলোডার</h1>
-        <p class="subtitle">ওয়াটারমার্ক ছাড়া ভিডিও ডাউনলোড করুন</p>
+        <h1>🎵 TikTok Downloader</h1>
+        <p class="subtitle">Download videos without watermark</p>
         
         <div class="input-group">
-            <input type="text" id="videoUrl" placeholder="TikTok লিংক পেস্ট করুন...">
-            <button id="downloadBtn" onclick="downloadVideo()">ডাউনলোড</button>
+            <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
+            <button id="downloadBtn" onclick="downloadVideo()">Download</button>
         </div>
         
         <div id="result" class="result">
             <video id="videoPreview" controls></video>
-            <a id="downloadLink" class="download-btn" download>ভিডিও সেভ করুন</a>
+            <a id="downloadLink" class="download-btn" download>Save Video</a>
         </div>
         
         <div class="info">
-            <strong>কিভাবে ব্যবহার করবেন:</strong><br>
-            1. TikTok অ্যাপে ভিডিওর শেয়ার বাটন চাপুন<br>
-            2. "Copy Link" সিলেক্ট করুন<br>
-            3. লিংক পেস্ট করে ডাউনলোড চাপুন
+            <strong>How to use:</strong><br>
+            1. Tap share button on TikTok video<br>
+            2. Select "Copy Link"<br>
+            3. Paste the link and click Download
         </div>
     </div>
 
     <script>
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check saved theme in localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark');
+            themeToggle.innerHTML = '☀️';
+        } else {
+            themeToggle.innerHTML = '🌙';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            if (body.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '🌙';
+            }
+        });
+        
+        // Original download function - exactly as before
         async function downloadVideo() {
             const urlInput = document.getElementById('videoUrl');
             const btn = document.getElementById('downloadBtn');
@@ -157,17 +502,17 @@
             let videoUrl = urlInput.value.trim();
             
             if (!videoUrl) {
-                alert('দয়া করে একটি TikTok লিংক দিন!');
+                showError('Please enter a TikTok link!');
                 return;
             }
             
             if (!videoUrl.includes('tiktok.com')) {
-                alert('শুধুমাত্র TikTok লিংক সাপোর্ট করে!');
+                showError('Only TikTok links are supported!');
                 return;
             }
             
             btn.disabled = true;
-            btn.innerHTML = '<span class="loading"></span> প্রসেসিং...';
+            btn.innerHTML = '<span class="loading"></span> Processing...';
             resultDiv.classList.remove('show');
             
             try {
@@ -184,21 +529,43 @@
                     downloadLink.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
                     downloadLink.download = `tiktok_${Date.now()}.mp4`;
                     resultDiv.classList.add('show');
-                    btn.innerHTML = 'ডাউনলোড';
+                    btn.innerHTML = 'Download';
                 } else {
-                    throw new Error('ভিডিও পাওয়া যায়নি');
+                    throw new Error('Video not found');
                 }
                 
             } catch (error) {
-                alert('ভিডিও ডাউনলোড করা যাচ্ছে না! পরে আবার চেষ্টা করুন।');
-                btn.innerHTML = 'ডাউনলোড';
+                showError('Unable to download video! Please try again later.');
+                btn.innerHTML = 'Download';
             } finally {
                 btn.disabled = false;
             }
         }
         
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.innerHTML = message;
+            const container = document.querySelector('.container');
+            const existingError = container.querySelector('.error');
+            if (existingError) existingError.remove();
+            container.insertBefore(errorDiv, document.getElementById('result'));
+            setTimeout(() => {
+                if (errorDiv) errorDiv.remove();
+            }, 3000);
+        }
+        
         document.getElementById('videoUrl').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') downloadVideo();
+        });
+        
+        // Input field focus animation trigger
+        const inputField = document.getElementById('videoUrl');
+        inputField.addEventListener('focus', () => {
+            inputField.style.transform = 'scale(1.02)';
+        });
+        inputField.addEventListener('blur', () => {
+            inputField.style.transform = 'scale(1)';
         });
     </script>
 </body>
