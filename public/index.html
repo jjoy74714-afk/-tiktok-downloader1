@@ -27,6 +27,7 @@
             --video-info-bg: #f8f9fa;
             --counter-bg: #e8f0fe;
             --quality-bg: #f0f0f0;
+            --feature-bg: #f8f9fa;
         }
 
         body.dark {
@@ -45,6 +46,7 @@
             --video-info-bg: #2a2a3e;
             --counter-bg: #1a2a3e;
             --quality-bg: #2a2a3e;
+            --feature-bg: #2a2a3e;
         }
 
         body {
@@ -62,7 +64,7 @@
             background: var(--container-bg);
             border-radius: 20px;
             padding: 40px;
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
             box-shadow: 0 20px 60px var(--shadow-color);
             text-align: center;
@@ -123,7 +125,7 @@
             color: #667eea;
         }
 
-        /* Clear Link Button */
+        /* Input Group */
         .input-group {
             display: flex;
             gap: 10px;
@@ -285,6 +287,62 @@
             font-weight: bold;
         }
 
+        /* Features Section */
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 20px 0;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .feature-card {
+            background: var(--feature-bg);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: var(--subtitle-color);
+            line-height: 1.4;
+        }
+
         .error {
             background: var(--error-bg);
             color: var(--error-text);
@@ -345,12 +403,13 @@
         .theme-toggle { right: 20px; }
         .lang-toggle { right: 75px; }
 
-        @media (max-width: 480px) {
+        @media (max-width: 550px) {
             .container { padding: 20px; }
             .theme-toggle, .lang-toggle { width: 38px; height: 38px; font-size: 16px; }
             .lang-toggle { right: 65px; }
             .quality-selector { gap: 5px; }
             .quality-btn { padding: 5px 12px; font-size: 11px; }
+            .features-section { grid-template-columns: 1fr; gap: 12px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -407,6 +466,30 @@
             <video id="videoPreview" controls></video>
             <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
             <a id="downloadLink" class="download-btn" download>Save Video</a>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">Unlimited</div>
+                <div class="feature-desc">Save TikTok videos as much as you need - without any limits.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚫</div>
+                <div class="feature-title">No Watermark!</div>
+                <div class="feature-desc">Download TikTok video in MP4 or remove TT logo.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <div class="feature-title">MP4 & MP3</div>
+                <div class="feature-desc">Save files in HD quality, convert TikTok to MP4 or MP3.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-title">Online Tool</div>
+                <div class="feature-desc">Free TikTok download tool - save TT videos with highest quality.</div>
+            </div>
         </div>
         
         <div id="info" class="info">
@@ -506,7 +589,7 @@
             }
         }
         
-        // ========== BATCH DOWNLOAD (Auto 1 by 1) ==========
+        // ========== BATCH DOWNLOAD ==========
         async function startBatchDownload() {
             if (isBatchRunning) {
                 showMessage('Batch download already running!', '#ffc107');
@@ -563,13 +646,11 @@
                         successCount++;
                         incrementDownloadCounter();
                         
-                        // Auto download this video
                         const link = document.createElement('a');
                         link.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
                         link.download = `tiktok_${Date.now()}_${i+1}.mp4`;
                         link.click();
                         
-                        // Show preview for current video (optional)
                         if (i === 0) {
                             document.getElementById('videoPreview').src = data.videoUrl;
                             displayVideoInfo({ title: data.title, author: data.author, likes: data.likes });
@@ -578,8 +659,6 @@
                         
                         statusSpan.innerHTML = `✅ ${i+1}/${urls.length} Complete! Downloaded: ${successCount}`;
                         progressFill.style.width = `${((i+1) / urls.length) * 100}%`;
-                        
-                        // Wait 2 seconds before next download
                         await new Promise(r => setTimeout(r, 2000));
                     } else {
                         failCount++;
@@ -596,7 +675,6 @@
             
             statusSpan.innerHTML = `🎉 Complete! Success: ${successCount}, Failed: ${failCount}, Total: ${urls.length}`;
             progressFill.style.width = `100%`;
-            
             showMessage(`Batch download complete! ${successCount} videos downloaded.`, '#28a745');
             
             setTimeout(() => {
@@ -645,7 +723,6 @@
             updateCounterDisplay();
         }
         
-        // ========== UI FUNCTIONS ==========
         function formatNumber(num) { 
             if (!num) return '0'; 
             if (num >= 1000000) return (num/1000000).toFixed(1)+'M'; 
@@ -705,7 +782,6 @@
             document.getElementById('batchTitle').innerHTML = translations[lang].batchTitle;
             document.getElementById('langToggle').innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
             
-            // Update button text
             const downloadBtn = document.getElementById('downloadBtn');
             if (downloadBtn) downloadBtn.innerHTML = translations[lang].button;
         }
@@ -720,7 +796,7 @@
         if (savedLang === 'bn') updateLanguage('bn'); 
         else updateLanguage('en');
         
-        // Add download button to DOM if not exists
+        // Add download button
         const inputGroup = document.querySelector('.input-group');
         if (!document.getElementById('downloadBtn')) {
             const btn = document.createElement('button');
@@ -745,7 +821,6 @@
         
         document.getElementById('videoUrl').addEventListener('keypress', (e) => { if (e.key === 'Enter') downloadVideo(); });
         
-        // Make functions global
         window.downloadVideo = downloadVideo;
         window.clearLink = clearLink;
         window.startBatchDownload = startBatchDownload;
