@@ -28,6 +28,7 @@
             --lang-btn-bg: #f0f0f0;
             --lang-btn-text: #333;
             --video-info-bg: #f8f9fa;
+            --counter-bg: #e8f0fe;
         }
 
         /* Dark Mode */
@@ -47,6 +48,7 @@
             --lang-btn-bg: #2d2d44;
             --lang-btn-text: #f0f0f0;
             --video-info-bg: #2a2a3e;
+            --counter-bg: #1a2a3e;
         }
 
         body {
@@ -136,6 +138,37 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Download Counter */
+        .download-counter {
+            background: var(--counter-bg);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-color);
+            animation: counterPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .counter-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #667eea;
+            margin-left: 5px;
         }
 
         h1 {
@@ -410,6 +443,7 @@
             .video-stats { gap: 10px; }
             .logo-icon { width: 45px; height: 45px; font-size: 24px; }
             .brand-name { font-size: 22px; }
+            .counter-number { font-size: 18px; }
         }
     </style>
     <!-- Font Awesome for icons -->
@@ -429,6 +463,13 @@
                 <div class="brand-name">TikSave</div>
                 <div class="brand-tag">by MEHEDI</div>
             </div>
+        </div>
+        
+        <!-- Download Counter -->
+        <div class="download-counter" id="downloadCounter">
+            <i class="fas fa-download"></i>
+            <span id="counterText">Today Downloads:</span>
+            <span class="counter-number" id="counterValue">0</span>
         </div>
         
         <h1 id="title">🎵 TikTok Downloader</h1>
@@ -458,6 +499,63 @@
     </div>
 
     <script>
+        // Download Counter - localStorage based
+        let downloadCount = 0;
+        let todayDate = new Date().toDateString();
+        
+        // Load saved counter from localStorage
+        function loadDownloadCounter() {
+            const savedData = localStorage.getItem('tiktok_download_counter');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const savedDate = data.date;
+                const savedCount = data.count;
+                
+                // Check if it's a new day
+                if (savedDate === todayDate) {
+                    downloadCount = savedCount;
+                } else {
+                    downloadCount = 0;
+                    saveDownloadCounter();
+                }
+            } else {
+                downloadCount = 0;
+                saveDownloadCounter();
+            }
+            updateCounterDisplay();
+        }
+        
+        // Save counter to localStorage
+        function saveDownloadCounter() {
+            const data = {
+                date: todayDate,
+                count: downloadCount
+            };
+            localStorage.setItem('tiktok_download_counter', JSON.stringify(data));
+        }
+        
+        // Update counter display
+        function updateCounterDisplay() {
+            document.getElementById('counterValue').innerText = downloadCount;
+        }
+        
+        // Increment counter
+        function incrementDownloadCounter() {
+            downloadCount++;
+            saveDownloadCounter();
+            updateCounterDisplay();
+            
+            // Add animation to counter
+            const counterDiv = document.getElementById('downloadCounter');
+            counterDiv.style.animation = 'none';
+            setTimeout(() => {
+                counterDiv.style.animation = 'counterPulse 0.5s ease-in-out';
+            }, 10);
+            setTimeout(() => {
+                counterDiv.style.animation = 'counterPulse 2s ease-in-out infinite';
+            }, 500);
+        }
+        
         // Language translations
         const translations = {
             en: {
@@ -477,7 +575,8 @@
                 likes: "Likes",
                 comments: "Comments",
                 shares: "Shares",
-                author: "Author"
+                author: "Author",
+                counterText: "Today Downloads:"
             },
             bn: {
                 title: "🎵 টিকটক ডাউনলোডার",
@@ -496,7 +595,8 @@
                 likes: "লাইক",
                 comments: "মন্তব্য",
                 shares: "শেয়ার",
-                author: "লেখক"
+                author: "লেখক",
+                counterText: "আজকের ডাউনলোড:"
             }
         };
 
@@ -513,6 +613,7 @@
             document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
             document.getElementById('downloadBtn').innerHTML = translations[lang].button;
             document.getElementById('downloadLink').innerHTML = translations[lang].saveBtn;
+            document.getElementById('counterText').innerHTML = translations[lang].counterText;
             
             const infoHtml = `<strong>${translations[lang].infoTitle}</strong><br>${translations[lang].info1}<br>${translations[lang].info2}<br>${translations[lang].info3}`;
             document.getElementById('info').innerHTML = infoHtml;
@@ -530,12 +631,16 @@
             localStorage.setItem('language', newLang);
         });
         
+        // Load saved language
         const savedLang = localStorage.getItem('language');
         if (savedLang && (savedLang === 'en' || savedLang === 'bn')) {
             updateLanguage(savedLang);
         } else {
             updateLanguage('en');
         }
+        
+        // Load counter on page load
+        loadDownloadCounter();
 
         function displayVideoInfo(data) {
             const infoCard = document.getElementById('videoInfoCard');
@@ -624,6 +729,10 @@
                     
                     resultDiv.classList.add('show');
                     btn.innerHTML = translations[currentLang].button;
+                    
+                    // Increment download counter
+                    incrementDownloadCounter();
+                    
                 } else {
                     throw new Error('Video not found');
                 }
