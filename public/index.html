@@ -29,6 +29,8 @@
             --lang-btn-text: #333;
             --video-info-bg: #f8f9fa;
             --counter-bg: #e8f0fe;
+            --favorite-bg: #fff9e6;
+            --favorite-border: #ffc107;
         }
 
         /* Dark Mode */
@@ -49,6 +51,8 @@
             --lang-btn-text: #f0f0f0;
             --video-info-bg: #2a2a3e;
             --counter-bg: #1a2a3e;
+            --favorite-bg: #2a2a1e;
+            --favorite-border: #ffc107;
         }
 
         body {
@@ -109,7 +113,6 @@
 
         .logo-icon:hover {
             transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
 
         .brand-name {
@@ -119,56 +122,123 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
         }
 
         .brand-tag {
             font-size: 12px;
             color: var(--subtitle-color);
             margin-top: -5px;
-            animation: tagFade 0.8s ease-out 0.2s both;
-        }
-
-        @keyframes tagFade {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Download Counter */
         .download-counter {
             background: var(--counter-bg);
             border-radius: 50px;
-            padding: 10px 20px;
-            margin-bottom: 20px;
+            padding: 8px 16px;
+            margin-bottom: 15px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 14px;
+            gap: 8px;
+            font-size: 13px;
             font-weight: bold;
             color: var(--text-color);
-            animation: counterPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes counterPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
         }
 
         .counter-number {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             color: #667eea;
-            margin-left: 5px;
+        }
+
+        /* Favorite Tabs */
+        .favorite-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* Favorites List */
+        .favorites-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .favorites-list.show {
+            display: block;
+        }
+
+        .favorite-item {
+            background: var(--favorite-bg);
+            border: 1px solid var(--favorite-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .favorite-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .favorite-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+
+        .favorite-meta {
+            font-size: 11px;
+            color: var(--subtitle-color);
+        }
+
+        .favorite-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .fav-btn-small {
+            background: none;
+            padding: 5px 10px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .fav-btn-small:hover {
+            transform: scale(1.05);
+        }
+
+        .empty-favorites {
+            text-align: center;
+            padding: 30px;
+            color: var(--subtitle-color);
         }
 
         h1 {
@@ -183,7 +253,8 @@
 
         .subtitle {
             color: var(--subtitle-color);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
         .input-group {
@@ -195,10 +266,10 @@
 
         input {
             flex: 1;
-            padding: 15px 20px;
+            padding: 14px 18px;
             border: 2px solid var(--border-color);
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             background: var(--input-bg);
             color: var(--text-color);
@@ -207,24 +278,22 @@
 
         input:focus {
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
 
         button {
-            padding: 15px 30px;
+            padding: 14px 28px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         button:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transform: scale(1.03);
         }
 
         button:disabled {
@@ -233,83 +302,65 @@
         }
 
         .result {
-            margin-top: 30px;
+            margin-top: 25px;
             display: none;
         }
 
         .result.show {
             display: block;
-            animation: resultPop 0.5s ease;
+            animation: resultPop 0.4s ease;
         }
 
         @keyframes resultPop {
             from {
                 opacity: 0;
-                transform: scale(0.9) translateY(20px);
+                transform: scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1);
             }
         }
 
         video {
             max-width: 100%;
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         /* Video Info Card */
         .video-info-card {
             background: var(--video-info-bg);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
             text-align: left;
-            animation: infoSlide 0.5s ease;
-        }
-
-        @keyframes infoSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .video-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: var(--text-color);
-            margin-bottom: 10px;
-            line-height: 1.4;
-            word-break: break-word;
+            margin-bottom: 8px;
         }
 
         .video-stats {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 10px;
-            font-size: 12px;
+            margin-bottom: 8px;
+            font-size: 11px;
         }
 
         .stat {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             color: var(--subtitle-color);
         }
 
-        .stat i {
-            font-size: 14px;
-        }
-
         .video-author {
-            font-size: 12px;
+            font-size: 11px;
             color: #667eea;
             display: flex;
             align-items: center;
@@ -318,7 +369,7 @@
 
         .download-btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 10px 22px;
             background: #28a745;
             color: white;
             text-decoration: none;
@@ -328,34 +379,42 @@
         }
 
         .download-btn:hover {
-            transform: translateY(-3px) scale(1.05);
             background: #218838;
+        }
+
+        .favorite-btn {
+            background: #ffc107;
+            color: #333;
+            margin-left: 10px;
+            padding: 10px 18px;
+        }
+
+        .favorite-btn:hover {
+            background: #e0a800;
+        }
+
+        .favorite-btn.saved {
+            background: #dc3545;
+            color: white;
         }
 
         .error {
             background: var(--error-bg);
             color: var(--error-text);
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
-            margin-top: 15px;
-            animation: errorShake 0.5s ease;
-        }
-
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            margin-top: 12px;
         }
 
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-right: 10px;
+            margin-right: 8px;
         }
 
         @keyframes spin {
@@ -365,88 +424,54 @@
 
         .info {
             background: var(--info-bg);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 18px;
+            font-size: 11px;
             color: var(--info-text);
         }
 
-        /* Footer */
         .footer {
-            margin-top: 20px;
-            font-size: 11px;
+            margin-top: 18px;
+            font-size: 10px;
             color: var(--subtitle-color);
             text-align: center;
             border-top: 1px solid var(--border-color);
-            padding-top: 15px;
+            padding-top: 12px;
         }
 
-        /* Theme Toggle Button */
-        .theme-toggle {
+        /* Theme & Language Toggle */
+        .theme-toggle, .lang-toggle {
             position: fixed;
             top: 20px;
-            right: 20px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.4s;
-            z-index: 1000;
-            font-size: 24px;
-            border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.15) rotate(15deg);
-        }
-
-        /* Language Toggle Button */
-        .lang-toggle {
-            position: fixed;
-            top: 20px;
-            right: 85px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s;
             z-index: 1000;
             font-size: 20px;
-            font-weight: bold;
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            color: white;
         }
 
-        .lang-toggle:hover {
-            transform: scale(1.15);
-        }
+        .theme-toggle { right: 20px; }
+        .lang-toggle { right: 75px; }
 
         @media (max-width: 480px) {
-            .container { padding: 25px; }
+            .container { padding: 20px; }
             .input-group { flex-direction: column; }
             button { width: 100%; }
-            .theme-toggle { width: 40px; height: 40px; font-size: 18px; top: 10px; right: 10px; }
-            .lang-toggle { width: 40px; height: 40px; font-size: 16px; top: 10px; right: 60px; }
-            .video-stats { gap: 10px; }
-            .logo-icon { width: 45px; height: 45px; font-size: 24px; }
-            .brand-name { font-size: 22px; }
-            .counter-number { font-size: 18px; }
+            .theme-toggle, .lang-toggle { width: 38px; height: 38px; font-size: 16px; }
+            .lang-toggle { right: 65px; }
+            .favorite-item { flex-direction: column; gap: 8px; }
+            .favorite-actions { justify-content: flex-end; width: 100%; }
         }
     </style>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -454,221 +479,237 @@
     <button class="lang-toggle" id="langToggle" title="বাংলা / English">🇧🇩 EN</button>
     
     <div class="container">
-        <!-- Logo and Brand Section -->
         <div class="logo-section">
-            <div class="logo-icon">
-                <i class="fab fa-tiktok"></i>
-            </div>
-            <div>
-                <div class="brand-name">TikSave</div>
-                <div class="brand-tag">by MEHEDI</div>
-            </div>
+            <div class="logo-icon"><i class="fab fa-tiktok"></i></div>
+            <div><div class="brand-name">TikSave</div><div class="brand-tag">by MEHEDI</div></div>
         </div>
         
-        <!-- Download Counter -->
         <div class="download-counter" id="downloadCounter">
-            <i class="fas fa-download"></i>
-            <span id="counterText">Today Downloads:</span>
-            <span class="counter-number" id="counterValue">0</span>
+            <i class="fas fa-download"></i> <span id="counterText">Today Downloads:</span> <span class="counter-number" id="counterValue">0</span>
         </div>
         
-        <h1 id="title">🎵 TikTok Downloader</h1>
-        <p id="subtitle" class="subtitle">Download videos without watermark</p>
-        
-        <div class="input-group">
-            <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
-            <button id="downloadBtn" onclick="downloadVideo()">Download</button>
+        <!-- Favorite Tabs -->
+        <div class="favorite-tabs">
+            <button class="tab-btn active" id="downloadTabBtn" onclick="showTab('download')"><i class="fas fa-download"></i> Download</button>
+            <button class="tab-btn" id="favoritesTabBtn" onclick="showTab('favorites')"><i class="fas fa-heart"></i> Favorites (<span id="favCount">0</span>)</button>
         </div>
         
-        <div id="result" class="result">
-            <video id="videoPreview" controls></video>
-            <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
-            <a id="downloadLink" class="download-btn" download>Save Video</a>
+        <!-- Download Section -->
+        <div id="downloadSection">
+            <h1 id="title">🎵 TikTok Downloader</h1>
+            <p id="subtitle" class="subtitle">Download videos without watermark</p>
+            
+            <div class="input-group">
+                <input type="text" id="videoUrl" placeholder="Paste TikTok link here...">
+                <button id="downloadBtn" onclick="downloadVideo()">Download</button>
+            </div>
+            
+            <div id="result" class="result">
+                <video id="videoPreview" controls></video>
+                <div id="videoInfoCard" class="video-info-card" style="display: none;"></div>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a id="downloadLink" class="download-btn" download>Save Video</a>
+                    <button id="saveFavoriteBtn" class="favorite-btn" onclick="saveCurrentToFavorites()">❤️ Save to Favorites</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Favorites Section -->
+        <div id="favoritesSection" style="display: none;">
+            <h1><i class="fas fa-heart"></i> My Favorites</h1>
+            <p class="subtitle">Your saved videos</p>
+            <div id="favoritesList" class="favorites-list"></div>
         </div>
         
         <div id="info" class="info">
-            <strong>How to use:</strong><br>
-            1. Tap share button on TikTok video<br>
-            2. Select "Copy Link"<br>
-            3. Paste the link and click Download
+            <strong>How to use:</strong><br>1. Tap share on TikTok<br>2. Copy Link<br>3. Paste & Download
         </div>
         
-        <div class="footer">
-            <i class="fab fa-tiktok"></i> TikSave by MEHEDI | © 2026
-        </div>
+        <div class="footer"><i class="fab fa-tiktok"></i> TikSave by MEHEDI | © 2026</div>
     </div>
 
     <script>
-        // Download Counter - localStorage based
+        // ========== FAVORITES SYSTEM ==========
+        let favorites = [];
+        let currentVideoData = null;
+        
+        function loadFavorites() {
+            const saved = localStorage.getItem('tiktok_favorites');
+            if (saved) {
+                favorites = JSON.parse(saved);
+            } else {
+                favorites = [];
+            }
+            updateFavCount();
+            renderFavorites();
+        }
+        
+        function saveFavorites() {
+            localStorage.setItem('tiktok_favorites', JSON.stringify(favorites));
+            updateFavCount();
+            renderFavorites();
+        }
+        
+        function updateFavCount() {
+            document.getElementById('favCount').innerText = favorites.length;
+        }
+        
+        function renderFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+            
+            if (favorites.length === 0) {
+                container.innerHTML = `<div class="empty-favorites"><i class="far fa-heart"></i> No favorites yet.<br>Download a video and click "Save to Favorites"</div>`;
+                container.classList.add('show');
+                return;
+            }
+            
+            let html = '';
+            favorites.forEach((fav, index) => {
+                html += `
+                    <div class="favorite-item" data-id="${index}">
+                        <div class="favorite-info">
+                            <div class="favorite-title">${escapeHtml(fav.title || 'No title')}</div>
+                            <div class="favorite-meta"><i class="fab fa-tiktok"></i> @${escapeHtml(fav.author || 'unknown')} | ❤️ ${formatNumber(fav.likes)}</div>
+                        </div>
+                        <div class="favorite-actions">
+                            <button class="fav-btn-small" onclick="playFavorite('${index}')" style="background:#28a745;"><i class="fas fa-play"></i></button>
+                            <button class="fav-btn-small" onclick="downloadFavorite('${index}')" style="background:#007bff;"><i class="fas fa-download"></i></button>
+                            <button class="fav-btn-small" onclick="deleteFavorite('${index}')" style="background:#dc3545;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            container.classList.add('show');
+        }
+        
+        function saveCurrentToFavorites() {
+            if (!currentVideoData || !currentVideoData.videoUrl) {
+                showError('No video loaded! Download a video first.');
+                return;
+            }
+            
+            // Check if already exists
+            const exists = favorites.some(f => f.videoUrl === currentVideoData.videoUrl);
+            if (exists) {
+                showError('Video already in favorites!');
+                return;
+            }
+            
+            favorites.push({
+                id: Date.now(),
+                title: currentVideoData.title || 'TikTok Video',
+                author: currentVideoData.author || 'unknown',
+                likes: currentVideoData.likes || 0,
+                videoUrl: currentVideoData.videoUrl,
+                thumbnail: currentVideoData.thumbnail,
+                savedAt: new Date().toISOString()
+            });
+            
+            saveFavorites();
+            showSuccess('Added to favorites! ❤️');
+            
+            // Change button style temporarily
+            const favBtn = document.getElementById('saveFavoriteBtn');
+            favBtn.innerHTML = '✅ Saved!';
+            setTimeout(() => {
+                favBtn.innerHTML = '❤️ Save to Favorites';
+            }, 2000);
+        }
+        
+        function playFavorite(index) {
+            const fav = favorites[index];
+            if (fav && fav.videoUrl) {
+                const resultDiv = document.getElementById('result');
+                const videoPreview = document.getElementById('videoPreview');
+                const downloadLink = document.getElementById('downloadLink');
+                
+                videoPreview.src = fav.videoUrl;
+                downloadLink.href = `/api/proxy?url=${encodeURIComponent(fav.videoUrl)}`;
+                downloadLink.download = `tiktok_${Date.now()}.mp4`;
+                
+                // Show video info
+                displayVideoInfo({
+                    title: fav.title,
+                    author: fav.author,
+                    likes: fav.likes
+                });
+                
+                resultDiv.classList.add('show');
+                showTab('download');
+            }
+        }
+        
+        function downloadFavorite(index) {
+            const fav = favorites[index];
+            if (fav && fav.videoUrl) {
+                window.open(`/api/proxy?url=${encodeURIComponent(fav.videoUrl)}`, '_blank');
+            }
+        }
+        
+        function deleteFavorite(index) {
+            if (confirm('Remove this video from favorites?')) {
+                favorites.splice(index, 1);
+                saveFavorites();
+                showSuccess('Removed from favorites');
+            }
+        }
+        
+        // ========== DOWNLOAD COUNTER ==========
         let downloadCount = 0;
         let todayDate = new Date().toDateString();
         
-        // Load saved counter from localStorage
         function loadDownloadCounter() {
             const savedData = localStorage.getItem('tiktok_download_counter');
             if (savedData) {
                 const data = JSON.parse(savedData);
-                const savedDate = data.date;
-                const savedCount = data.count;
-                
-                // Check if it's a new day
-                if (savedDate === todayDate) {
-                    downloadCount = savedCount;
-                } else {
-                    downloadCount = 0;
-                    saveDownloadCounter();
-                }
-            } else {
-                downloadCount = 0;
-                saveDownloadCounter();
+                if (data.date === todayDate) downloadCount = data.count;
+                else downloadCount = 0;
             }
             updateCounterDisplay();
         }
         
-        // Save counter to localStorage
         function saveDownloadCounter() {
-            const data = {
-                date: todayDate,
-                count: downloadCount
-            };
-            localStorage.setItem('tiktok_download_counter', JSON.stringify(data));
+            localStorage.setItem('tiktok_download_counter', JSON.stringify({ date: todayDate, count: downloadCount }));
         }
         
-        // Update counter display
         function updateCounterDisplay() {
             document.getElementById('counterValue').innerText = downloadCount;
         }
         
-        // Increment counter
         function incrementDownloadCounter() {
             downloadCount++;
             saveDownloadCounter();
             updateCounterDisplay();
-            
-            // Add animation to counter
-            const counterDiv = document.getElementById('downloadCounter');
-            counterDiv.style.animation = 'none';
-            setTimeout(() => {
-                counterDiv.style.animation = 'counterPulse 0.5s ease-in-out';
-            }, 10);
-            setTimeout(() => {
-                counterDiv.style.animation = 'counterPulse 2s ease-in-out infinite';
-            }, 500);
         }
         
-        // Language translations
-        const translations = {
-            en: {
-                title: "🎵 TikTok Downloader",
-                subtitle: "Download videos without watermark",
-                placeholder: "Paste TikTok link here...",
-                button: "Download",
-                saveBtn: "Save Video",
-                infoTitle: "How to use:",
-                info1: "1. Tap share button on TikTok video",
-                info2: "2. Select \"Copy Link\"",
-                info3: "3. Paste the link and click Download",
-                processing: "Processing...",
-                error: "Unable to download video! Please try again later.",
-                errorEmpty: "Please enter a TikTok link!",
-                errorInvalid: "Only TikTok links are supported!",
-                likes: "Likes",
-                comments: "Comments",
-                shares: "Shares",
-                author: "Author",
-                counterText: "Today Downloads:"
-            },
-            bn: {
-                title: "🎵 টিকটক ডাউনলোডার",
-                subtitle: "ওয়াটারমার্ক ছাড়া ভিডিও ডাউনলোড করুন",
-                placeholder: "টিকটক লিংক পেস্ট করুন...",
-                button: "ডাউনলোড",
-                saveBtn: "ভিডিও সেভ করুন",
-                infoTitle: "কিভাবে ব্যবহার করবেন:",
-                info1: "১. টিকটক ভিডিওর শেয়ার বাটন চাপুন",
-                info2: "২. 'কপি লিংক' সিলেক্ট করুন",
-                info3: "৩. লিংক পেস্ট করে ডাউনলোড চাপুন",
-                processing: "প্রসেসিং...",
-                error: "ভিডিও ডাউনলোড করা যাচ্ছে না! পরে আবার চেষ্টা করুন।",
-                errorEmpty: "দয়া করে একটি টিকটক লিংক দিন!",
-                errorInvalid: "শুধুমাত্র টিকটক লিংক সাপোর্ট করে!",
-                likes: "লাইক",
-                comments: "মন্তব্য",
-                shares: "শেয়ার",
-                author: "লেখক",
-                counterText: "আজকের ডাউনলোড:"
-            }
-        };
-
-        let currentLang = 'en';
-        let currentVideoInfo = null;
-
-        // Language Toggle
-        const langToggle = document.getElementById('langToggle');
-        
-        function updateLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('title').innerHTML = translations[lang].title;
-            document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
-            document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
-            document.getElementById('downloadBtn').innerHTML = translations[lang].button;
-            document.getElementById('downloadLink').innerHTML = translations[lang].saveBtn;
-            document.getElementById('counterText').innerHTML = translations[lang].counterText;
+        // ========== UI FUNCTIONS ==========
+        function showTab(tab) {
+            const downloadSection = document.getElementById('downloadSection');
+            const favoritesSection = document.getElementById('favoritesSection');
+            const downloadTab = document.getElementById('downloadTabBtn');
+            const favTab = document.getElementById('favoritesTabBtn');
             
-            const infoHtml = `<strong>${translations[lang].infoTitle}</strong><br>${translations[lang].info1}<br>${translations[lang].info2}<br>${translations[lang].info3}`;
-            document.getElementById('info').innerHTML = infoHtml;
-            
-            langToggle.innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
-            
-            if (currentVideoInfo) {
-                displayVideoInfo(currentVideoInfo);
+            if (tab === 'download') {
+                downloadSection.style.display = 'block';
+                favoritesSection.style.display = 'none';
+                downloadTab.classList.add('active');
+                favTab.classList.remove('active');
+            } else {
+                downloadSection.style.display = 'none';
+                favoritesSection.style.display = 'block';
+                downloadTab.classList.remove('active');
+                favTab.classList.add('active');
+                renderFavorites();
             }
         }
         
-        langToggle.addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'bn' : 'en';
-            updateLanguage(newLang);
-            localStorage.setItem('language', newLang);
-        });
-        
-        // Load saved language
-        const savedLang = localStorage.getItem('language');
-        if (savedLang && (savedLang === 'en' || savedLang === 'bn')) {
-            updateLanguage(savedLang);
-        } else {
-            updateLanguage('en');
-        }
-        
-        // Load counter on page load
-        loadDownloadCounter();
-
-        function displayVideoInfo(data) {
-            const infoCard = document.getElementById('videoInfoCard');
-            currentVideoInfo = data;
-            
-            const formatNumber = (num) => {
-                if (!num) return '0';
-                if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-                if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-                return num.toString();
-            };
-            
-            const html = `
-                <div class="video-title">
-                    <i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}
-                </div>
-                <div class="video-stats">
-                    <div class="stat"><i class="fas fa-heart" style="color: #ff4444;"></i> ${formatNumber(data.likes)} ${translations[currentLang].likes}</div>
-                    <div class="stat"><i class="fas fa-comment" style="color: #44aaff;"></i> ${formatNumber(data.comments)} ${translations[currentLang].comments}</div>
-                    <div class="stat"><i class="fas fa-share" style="color: #44dd44;"></i> ${formatNumber(data.shares)} ${translations[currentLang].shares}</div>
-                </div>
-                <div class="video-author">
-                    <i class="fab fa-tiktok"></i> ${translations[currentLang].author}: @${escapeHtml(data.author || 'unknown')}
-                </div>
-            `;
-            
-            infoCard.innerHTML = html;
-            infoCard.style.display = 'block';
+        function formatNumber(num) {
+            if (!num) return '0';
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
         }
         
         function escapeHtml(text) {
@@ -678,6 +719,44 @@
             return div.innerHTML;
         }
         
+        function showSuccess(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.style.background = '#28a745';
+            errorDiv.style.color = 'white';
+            errorDiv.innerHTML = '✅ ' + message;
+            const container = document.querySelector('.container');
+            const existing = container.querySelector('.error');
+            if (existing) existing.remove();
+            container.insertBefore(errorDiv, document.getElementById('result'));
+            setTimeout(() => errorDiv.remove(), 2000);
+        }
+        
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.innerHTML = message;
+            const container = document.querySelector('.container');
+            const existing = container.querySelector('.error');
+            if (existing) existing.remove();
+            container.insertBefore(errorDiv, document.getElementById('result'));
+            setTimeout(() => errorDiv.remove(), 3000);
+        }
+        
+        function displayVideoInfo(data) {
+            const infoCard = document.getElementById('videoInfoCard');
+            const html = `
+                <div class="video-title"><i class="fas fa-heading"></i> ${escapeHtml(data.title || 'No title')}</div>
+                <div class="video-stats">
+                    <div class="stat"><i class="fas fa-heart" style="color:#ff4444;"></i> ${formatNumber(data.likes)} ${translations[currentLang]?.likes || 'Likes'}</div>
+                    <div class="stat"><i class="fab fa-tiktok"></i> @${escapeHtml(data.author || 'unknown')}</div>
+                </div>
+            `;
+            infoCard.innerHTML = html;
+            infoCard.style.display = 'block';
+        }
+        
+        // ========== DOWNLOAD FUNCTION ==========
         async function downloadVideo() {
             const urlInput = document.getElementById('videoUrl');
             const btn = document.getElementById('downloadBtn');
@@ -688,18 +767,11 @@
             
             let videoUrl = urlInput.value.trim();
             
-            if (!videoUrl) {
-                showError(translations[currentLang].errorEmpty);
-                return;
-            }
-            
-            if (!videoUrl.includes('tiktok.com')) {
-                showError(translations[currentLang].errorInvalid);
-                return;
-            }
+            if (!videoUrl) { showError(translations[currentLang]?.errorEmpty || 'Enter link!'); return; }
+            if (!videoUrl.includes('tiktok.com')) { showError(translations[currentLang]?.errorInvalid || 'Only TikTok!'); return; }
             
             btn.disabled = true;
-            btn.innerHTML = `<span class="loading"></span> ${translations[currentLang].processing}`;
+            btn.innerHTML = `<span class="loading"></span> ${translations[currentLang]?.processing || 'Processing...'}`;
             resultDiv.classList.remove('show');
             videoInfoCard.style.display = 'none';
             
@@ -709,7 +781,6 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: videoUrl })
                 });
-                
                 const data = await response.json();
                 
                 if (data.success && data.videoUrl) {
@@ -717,72 +788,81 @@
                     downloadLink.href = `/api/proxy?url=${encodeURIComponent(data.videoUrl)}`;
                     downloadLink.download = `tiktok_${Date.now()}.mp4`;
                     
-                    if (data.title || data.author || data.likes) {
-                        displayVideoInfo({
-                            title: data.title,
-                            author: data.author,
-                            likes: data.likes,
-                            comments: data.comments,
-                            shares: data.shares
-                        });
-                    }
+                    currentVideoData = {
+                        title: data.title,
+                        author: data.author,
+                        likes: data.likes,
+                        videoUrl: data.videoUrl
+                    };
                     
+                    displayVideoInfo({ title: data.title, author: data.author, likes: data.likes });
                     resultDiv.classList.add('show');
-                    btn.innerHTML = translations[currentLang].button;
-                    
-                    // Increment download counter
                     incrementDownloadCounter();
-                    
+                    btn.innerHTML = translations[currentLang]?.button || 'Download';
                 } else {
-                    throw new Error('Video not found');
+                    throw new Error('Not found');
                 }
-                
             } catch (error) {
-                showError(translations[currentLang].error);
-                btn.innerHTML = translations[currentLang].button;
+                showError(translations[currentLang]?.error || 'Error! Try again.');
+                btn.innerHTML = translations[currentLang]?.button || 'Download';
             } finally {
                 btn.disabled = false;
             }
         }
         
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error';
-            errorDiv.innerHTML = message;
-            const container = document.querySelector('.container');
-            const existingError = container.querySelector('.error');
-            if (existingError) existingError.remove();
-            container.insertBefore(errorDiv, document.getElementById('result'));
-            setTimeout(() => {
-                if (errorDiv) errorDiv.remove();
-            }, 3000);
+        // ========== LANGUAGE & THEME ==========
+        const translations = {
+            en: {
+                title: "🎵 TikTok Downloader", subtitle: "Download videos without watermark", placeholder: "Paste TikTok link...",
+                button: "Download", saveBtn: "Save Video", processing: "Processing...", errorEmpty: "Enter TikTok link!",
+                errorInvalid: "Only TikTok links!", error: "Download failed!", likes: "Likes", counterText: "Today Downloads:"
+            },
+            bn: {
+                title: "🎵 টিকটক ডাউনলোডার", subtitle: "ওয়াটারমার্ক ছাড়া ডাউনলোড করুন", placeholder: "টিকটক লিংক পেস্ট করুন...",
+                button: "ডাউনলোড", saveBtn: "ভিডিও সেভ করুন", processing: "প্রসেসিং...", errorEmpty: "টিকটক লিংক দিন!",
+                errorInvalid: "শুধু টিকটক লিংক!", error: "ডাউনলোড ব্যর্থ!", likes: "লাইক", counterText: "আজকের ডাউনলোড:"
+            }
+        };
+        
+        let currentLang = 'en';
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('title').innerHTML = translations[lang].title;
+            document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
+            document.getElementById('videoUrl').placeholder = translations[lang].placeholder;
+            document.getElementById('downloadBtn').innerHTML = translations[lang].button;
+            document.getElementById('downloadLink').innerHTML = translations[lang].saveBtn;
+            document.getElementById('counterText').innerHTML = translations[lang].counterText;
+            langToggle.innerHTML = lang === 'en' ? '🇧🇩 বাংলা' : '🇬🇧 English';
         }
         
-        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') downloadVideo();
+        const langToggle = document.getElementById('langToggle');
+        langToggle.addEventListener('click', () => {
+            const newLang = currentLang === 'en' ? 'bn' : 'en';
+            updateLanguage(newLang);
+            localStorage.setItem('language', newLang);
         });
-
+        
+        const savedLang = localStorage.getItem('language');
+        if (savedLang === 'bn') updateLanguage('bn');
+        else updateLanguage('en');
+        
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark');
-            themeToggle.innerHTML = '☀️';
-        } else {
-            themeToggle.innerHTML = '🌙';
-        }
+        if (savedTheme === 'dark') { body.classList.add('dark'); themeToggle.innerHTML = '☀️'; }
+        else themeToggle.innerHTML = '🌙';
         
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark');
-            if (body.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '☀️';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '🌙';
-            }
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+            themeToggle.innerHTML = body.classList.contains('dark') ? '☀️' : '🌙';
         });
+        
+        document.getElementById('videoUrl').addEventListener('keypress', (e) => { if (e.key === 'Enter') downloadVideo(); });
+        
+        loadDownloadCounter();
+        loadFavorites();
     </script>
 </body>
 </html>
