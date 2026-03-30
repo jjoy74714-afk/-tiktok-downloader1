@@ -848,9 +848,10 @@
                 <i class="fas fa-code"></i>
             </div>
             <h2 class="popup-title">TikSave</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 15px;">Premium TikTok Video Downloader</p>
+            <p style="color: var(--text-secondary); margin-bottom: 15px;">Premium TikTok Video Watermark Free Downloader</p>
             <div class="dev-name-popup">MEHEDI HASAN</div>
-            <p style="font-size: 13px; color: var(--text-secondary);">✦ Full Stack Developer | UI/UX Designer ✦</p>
+            <p style="font-size: 13px; color: var(--text-secondary);">✦ Full Stack Web, App And Software Developer| UI/UX Designer ✦</p>
+             <p style="font-size: 13px; color: var(--text-secondary);">✦ [Skill = HTML | CSS | JavaScript | React | Node.js | PHP | Python | C++ ]✦</p>
             <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
                 <i class="fab fa-github" style="font-size: 24px; opacity: 0.7;"></i>
                 <i class="fab fa-linkedin-in" style="font-size: 24px; opacity: 0.7;"></i>
